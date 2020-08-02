@@ -49,23 +49,23 @@ d3.csv(base_url + "us-city-lat-long.csv")
                 if (c['city'] == d['city']) {
                   d['lat'] = c['lat'];
                   d['long'] = c['long'];
+                }
             });
         });
         svg.selectAll("circle")
-             .data(data)
-             .enter()
-             .append("circle")
-             .attr("cx", function(d) {
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function(d) {
                 return projection([d['long'], d['lat']])[0];
-             })
-             .attr("cy", function(d) {
+            })
+            .attr("cy", function(d) {
                 return projection([d['long'], d['lat']]])[1];
-             })
-             .attr("r", function(d) {
+            })
+            .attr("r", function(d) {
                 return d['police_force_size'] / 100;
-             })
-             .style("fill", "rgb(217,91,67)")
-             .style("opacity", 0.85)
-        }
+            })
+            .style("fill", "rgb(217,91,67)")
+            .style("opacity", 0.85);
       }).catch(err => console.log(err));
   }).catch(err => console.log(err));

@@ -63,7 +63,7 @@ d3.json(base_url + "us-states.json")
                     return projection([d['long'], d['lat']])[1];
                 })
                 .attr("r", function(d) {
-                    return d['police_force_size'] / 1000;
+                    return d['police_force_size'] / 500;
                 })
                 .style("fill", "rgb(217,91,67)")
                 .style("opacity", 0.85);

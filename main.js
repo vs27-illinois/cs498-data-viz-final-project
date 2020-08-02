@@ -4,16 +4,17 @@ var height = 641;
 
 // D3 Projection
 var projection = d3.geoAlbersUsa()
-					.translate([width/2, height/2])
-					.scale(1425);
+                   .translate([width/2, height/2])
+                   .scale(1425);
 
 // Define path generator
 var path = d3.geoPath()
-			.projection(projection);
+             .projection(projection);
 
-var div = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
+var div = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
 
 //Create SVG element and append map to the SVG
@@ -25,7 +26,7 @@ var svg = d3.select("#map")
 			.attr("preserveAspectRatio", "xMidYMid meet");
 
 // Load GeoJSON data and merge with states data
-d3.json("us-states.json", function(json) {
+d3.json("https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-final-project/master/us-states.json", function(json) {
 
 	var repeat = {};
 	// Bind the data to the SVG and create one path per GeoJSON feature

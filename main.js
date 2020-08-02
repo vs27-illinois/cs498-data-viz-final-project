@@ -46,7 +46,7 @@ d3.csv(base_url + "us-city-lat-long.csv")
       .then(function(data) {
         data.forEach(function(d) {
             city.forEach(function(c) {
-                if (c['city'] == d['city']) {
+                if (d['city'] === c['city']) {
                   d['lat'] = c['lat'];
                   d['long'] = c['long'];
                 }
@@ -60,7 +60,7 @@ d3.csv(base_url + "us-city-lat-long.csv")
                 return projection([d['long'], d['lat']])[0];
             })
             .attr("cy", function(d) {
-                return projection([d['long'], d['lat']]])[1];
+                return projection([d['long'], d['lat']])[1];
             })
             .attr("r", function(d) {
                 return d['police_force_size'] / 100;

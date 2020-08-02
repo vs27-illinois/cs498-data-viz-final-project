@@ -37,7 +37,9 @@ d3.json(base_url + "us-states.json")
 		.attr("d", path)
 		.style("stroke", "#fff")
 		.style("stroke-width", "1")
-		.style("fill", "rgb(213,222,217)");
+		.style("fill",function(d) {
+            return "hsl(" + d['id'] * 360 + ",100%,50%)";
+        });
 
 	d3.csv(base_url + "us-city-lat-long.csv")
       .then(function(city) {

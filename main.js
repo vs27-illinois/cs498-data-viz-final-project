@@ -1,26 +1,28 @@
+let base_url = 'https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-final-project/master/';
+
 // Load GeoJSON data and merge with states data
-d3.json("https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-final-project/master/us-states.json")
+d3.json(base_url + "us-states.json")
   .then(function(json) {
     //Width and height of map
-    var width = 1000;
-    var height = 600;
+    let width = 1000;
+    let height = 600;
 
     // D3 Projection
-    var projection = d3.geoAlbersUsa()
+    let projection = d3.geoAlbersUsa()
                        .translate([width/2, height/2])
                        .scale(1200);
 
     // Define path generator
-    var path = d3.geoPath()
+    let path = d3.geoPath()
                  .projection(projection);
 
-    var div = d3.select("body")
+    let div = d3.select("body")
                 .append("div")
                 .attr("class", "tooltip")
                 .style("opacity", 0);
 
     //Create SVG element and append map to the SVG
-    var svg = d3.select("#map")
+    let svg = d3.select("#map")
     			.append("svg")
     			.attr("width", width)
     			.attr("height", height)

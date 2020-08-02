@@ -1,34 +1,32 @@
-//Width and height of map
-var width = 1145;
-var height = 641;
-
-// D3 Projection
-var projection = d3.geoAlbersUsa()
-                   .translate([width/2, height/2])
-                   .scale(1425);
-
-// Define path generator
-var path = d3.geoPath()
-             .projection(projection);
-
-var div = d3.select("body")
-            .append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
-
-//Create SVG element and append map to the SVG
-var svg = d3.select("#map")
-			.append("svg")
-			.attr("width", width)
-			.attr("height", height)
-			.attr("viewBox", "0 0 " + width + " " + height)
-			.attr("preserveAspectRatio", "xMidYMid meet");
-
 // Load GeoJSON data and merge with states data
-d3.json("https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-final-project/master/us-states.json", function(json) {
+d3.json("https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-final-project/master/us-states.json")
+  .then(function(json) {
+    //Width and height of map
+    var width = 1000;
+    var height = 600;
 
-	var repeat = {};
+    // D3 Projection
+    var projection = d3.geoAlbersUsa()
+                       .translate([width/2, height/2])
+                       .scale(1200);
+
+    // Define path generator
+    var path = d3.geoPath()
+                 .projection(projection);
+
+    var div = d3.select("body")
+                .append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+
+    //Create SVG element and append map to the SVG
+    var svg = d3.select("#map")
+    			.append("svg")
+    			.attr("width", width)
+    			.attr("height", height)
+    			.attr("viewBox", "0 0 " + width + " " + height)
+    			.attr("preserveAspectRatio", "xMidYMid meet");
+
 	// Bind the data to the SVG and create one path per GeoJSON feature
 	svg.selectAll("path")
 		.data(json.features)
@@ -38,5 +36,4 @@ d3.json("https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-final-pr
 		.style("stroke", "#fff")
 		.style("stroke-width", "1")
 		.style("fill", "rgb(213,222,217)");
-
-});
+  }).catch(err => console.log(err));

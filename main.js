@@ -130,7 +130,7 @@ d3.csv(base_url + "police-locals.csv")
 
       let z = d3.scaleOrdinal()
                 .domain(keys)
-                .range(["#b33040", "#d25c4d"]);
+                .range(["#20bbfc", "#d25c4d"]);
 
       svg.append("g")
           .selectAll("g")

@@ -116,7 +116,8 @@ d3.csv(base_url + "police-locals.csv")
                 .rangeRound([0, bar_width]);
 
       let y = d3.scaleBand()
-                .rangeRound([bar_height, 0]);
+                .rangeRound([bar_height, 0])
+                .padding(0.08);
 
       let z = d3.scaleOrdinal()
                 .range(["#b33040", "#d25c4d"]);

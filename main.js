@@ -127,7 +127,7 @@ d3.csv(base_url + "police-locals.csv")
       data.forEach(function(d) {
         var b = {};
         b['city'] = d['city'];
-        b['total'] = d['police_force_size'];
+        b['total'] = parseInt(d['police_force_size']);
         b['Locals'] = Math.round(b_data['total'] * d['all']);
         b['Non-Locals'] = b_data['total'] - b_data['Locals'];
         b_data.push(b);

@@ -4,14 +4,10 @@ let base_url = 'https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-f
 let map_width = 1200;
 let map_height = 600;
 
-// Stacked Bar Chart Width and Height
+// Stacked Bar Chart Width, Height and Margin
 let sb_width = 1000;
 let sb_height = 2000;
-
-// Width, Height and Margin of the Bar chart
-let margin = {top: 10, right: 50, bottom: 20, left: 150};
-let bar_width = sb_width - margin.left - margin.right;
-let bar_height = sb_height - margin.top - margin.bottom;
+let margin = {top: 30, right: 10, bottom: 10, left: 30};
 
 let div = d3.select("body")
             .append("div")
@@ -104,27 +100,10 @@ d3.csv(base_url + "police-locals.csv")
           }).catch(err => console.log(err));
       }).catch(err => console.log(err));
 
-      let svg = d3.select("#stack-bar")
-                  .append("svg")
-                  .attr("width", sb_width)
-                  .attr("height", sb_height);
-
-      let g = svg.append("g")
-                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-      let x = d3.scaleLinear()
-                .rangeRound([0, bar_width]);
-
-      let y = d3.scaleBand()
-                .rangeRound([bar_height, 0])
-                .padding(0.08);
-
-      let z = d3.scaleOrdinal()
-                .range(["#b33040", "#d25c4d"]);
-
       let keys = ["Locals", "Non-Locals"];
 
       let b_data = [];
+
       data.forEach(function(d) {
         var b = {};
         b['city'] = d['city'];
@@ -135,11 +114,25 @@ d3.csv(base_url + "police-locals.csv")
       });
 
       b_data.sort(function(a, b) { return a['total'] - b['total']; });
-      x.domain([0, d3.max(b_data, function(d) { return d['total']; })]).nice();
-      y.domain(b_data.map(function(d) { return d['city']; }));
-      z.domain(keys);
 
-      g.append("g")
+      let svg = d3.select("#stack-bar")
+                  .append("svg")
+                  .attr("viewBox", [0, 0, sb_width, sb_height]);
+
+      let x = d3.scaleLinear()
+                .domain([0, d3.max(b_data, function(d) { return d['total']; })])
+                .range([margin.left, sb_width - margin.right]);
+
+      let y = d3.scaleBand()
+                .domain(b_data.map(function(d) { return d['city']; }))
+                .range([margin.top, sb_height - margin.bottom])
+                .padding(0.08);
+
+      let z = d3.scaleOrdinal()
+                .domain(keys)
+                .range(["#b33040", "#d25c4d"]);
+
+      svg.append("g")
           .selectAll("g")
           .data(d3.stack().keys(keys)(b_data))
           .enter()
@@ -162,13 +155,16 @@ d3.csv(base_url + "police-locals.csv")
 //            tooltip.select("text").text(d[1]-d[0]);
 //          });
 
-      g.append("g")
+      svg.append("g")
             .attr("class", "axis")
-            .attr("transform", "translate(0," + bar_height + ")")
-            .call(d3.axisBottom(x));
+            .attr("transform", "translate(0," + margin.top + ")")
+            .call(d3.axisTop(x).ticks(sb_width / 100, "s"))
+            .call(g => g.selectAll(".domain").remove());
 
-      g.append("g")
+      svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y))
-            .attr('font-size', 11);
+            .attr('font-size', 11)
+            .attr("transform", "translate(" + margin.left + ",0)")
+            .call(d3.axisLeft(y).tickSizeOuter(0))
+            .call(g => g.selectAll(".domain").remove());
   }).catch(err => console.log(err));

@@ -133,6 +133,8 @@ d3.csv(base_url + "police-locals.csv")
         b_data.push(b);
       });
 
+      console.log(b_data);
+
       let m = d3.max(b_data, function(d) { return d['total']; });
 
       console.log(m);

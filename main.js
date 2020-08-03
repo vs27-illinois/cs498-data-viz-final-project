@@ -163,8 +163,8 @@ d3.csv(base_url + "police-locals.csv")
 
       svg.append("g")
             .attr("class", "axis")
-            .attr("fontSize", "12")
             .attr("transform", "translate(" + margin.left + ",0)")
+            .style("font-size", "12")
             .call(d3.axisLeft(y).tickSizeOuter(0))
             .call(g => g.selectAll(".domain").remove());
   }).catch(err => console.log(err));

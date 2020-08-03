@@ -103,63 +103,71 @@ d3.csv(base_url + "police-locals.csv")
       let svg = d3.select("stack-bar")
                   .append("svg")
                   .attr("width", width)
-                  .attr("height", height)
-                  .append("g")
-                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                  .attr("height", height);
 
-      let dataset = d3.layout.stack()(["Local", "Non-Local"].map(function(type) {
-        return data.map(function(d) {
-          let value = d['police_force_size'];
-          if (type == 'Local') {
-              value = Math.round(value * d['all']);
-          }
-          return {x: parse(d['city']), y: value};
-        });
-      }));
+      let g = svg.append("g")
+                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      let x = d3.scale.ordinal()
-                .domain(dataset[0].map(function(d) { return d.x; }))
-                .rangeRoundBands([10, bar_width-10], 0.02);
+      let x = d3.scaleBand()
+                .rangeRound([0, bar_width])
+                .paddingInner(0.05)
+                .align(0.1);
 
-      let y = d3.scale.linear()
-                .domain([0, d3.max(dataset, function(d) {  return d3.max(d, function(d) { return d.y0 + d.y; });  })])
-                .range([bar_height, 0]);
+      let y = d3.scaleLinear()
+                .rangeRound([bar_height, 0]);
 
-      let colors = ["b33040", "#d25c4d"];
+      let z = d3.scaleOrdinal()
+                .range(["b33040", "#d25c4d"]);
 
-      let yAxis = d3.svg.axis()
-                    .scale(y)
-                    .orient("left")
-                    .ticks(5)
-                    .tickSize(-bar_width, 0, 0)
-                    .tickFormat( function(d) { return d } );
+      let keys = ["Locals", "Non-Locals"];
 
-      let xAxis = d3.svg.axis()
-                    .scale(x)
-                    .orient("bottom")
-                    .tickFormat( function(d) { return d } );
+      let b_data = [];
+      data.forEach(function(d) {
+        b_data['city'] = d['city'];
+        b_data['total'] = d['police_force_size'];
+        b_data['Locals'] = Math.round(b_data['total'] * d['all']);
+        b_data['Non-Locals'] = b_data['total'] - b_data['Locals'];
+      });
 
-      svg.append("g")
-         .attr("class", "y axis")
-         .call(yAxis);
+      b_data.sort(function(a, b) { return b['total'] - a['total']; });
+      x.domain(b_data.map(function(d) { return d['city']; }));
+      y.domain([0, d3.max(data, function(d) { return d['total']; })]).nice();
+      z.domain(keys);
 
-      svg.append("g")
-         .attr("class", "x axis")
-         .attr("transform", "translate(0," + bar_height + ")")
-         .call(xAxis);
+      g.append("g")
+          .selectAll("g")
+          .data(d3.stack().keys(keys)(b_data))
+          .enter().append("g")
+            .attr("fill", function(d) { return z(d.key); })
+          .selectAll("rect")
+          .data(function(d) { return d; })
+          .enter().append("rect")
+            .attr("x", function(d) { return x(d.data['city']); })
+            .attr("y", function(d) { return y(d[1]); })
+            .attr("height", function(d) { return y(d[0]) - y(d[1]); })
+            .attr("width", x.bandwidth())
+          .on("mouseover", function() { tooltip.style("display", null); })
+          .on("mouseout", function() { tooltip.style("display", "none"); })
+          .on("mousemove", function(d) {
+            var xPosition = d3.mouse(this)[0] - 5;
+            var yPosition = d3.mouse(this)[1] - 5;
+            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+            tooltip.select("text").text(d[1]-d[0]);
+          });
 
-      let groups = svg.selectAll("g.cost")
-                      .data(dataset)
-                      .enter().append("g")
-                      .attr("class", "cost")
-                      .style("fill", function(d, i) { return colors[i]; });
+      g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + bar_height + ")")
+            .call(d3.axisBottom(x));
 
-      let rect = groups.selectAll("rect")
-                       .data(function(d) { return d; })
-                       .enter()
-                       .append("rect")
-                       .attr("x", function(d) { return x(d.x); })
-                       .attr("y", function(d) { return y(d.y0 + d.y); })
-                       .attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); })
-                       .attr("width", x.rangeBand());
+      g.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y).ticks(null, "s"))
+          .append("text")
+            .attr("x", 2)
+            .attr("y", y(y.ticks().pop()) + 0.5)
+            .attr("dy", "0.32em")
+            .attr("fill", "#000")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "start");
   }).catch(err => console.log(err));

@@ -85,7 +85,7 @@ d3.json(base_url + "us-states.json")
                 });
 
             svg.append('path')
-                .attr('d', 'M 853 218L 853 458')
+                .attr('d', 'M 860 275L 900 450')
                 .style('fill', 'none')
                 .style('stroke', 'black')
                 .style('stroke-width', 1)
@@ -93,8 +93,8 @@ d3.json(base_url + "us-states.json")
 
             svg.append('text')
                 .attr('x', 890)
-                .attr('y', 468)
-                .text('Annotation')
+                .attr('y', 470)
+                .text('New York City has the largest police force in the country')
           }).catch(err => console.log(err));
       }).catch(err => console.log(err));
   }).catch(err => console.log(err));

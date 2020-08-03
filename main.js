@@ -100,7 +100,7 @@ d3.csv(base_url + "police-locals.csv")
           }).catch(err => console.log(err));
       }).catch(err => console.log(err));
 
-      let svg = d3.select("stack-bar")
+      let svg = d3.select("#stack-bar")
                   .append("svg")
                   .attr("width", width)
                   .attr("height", height);

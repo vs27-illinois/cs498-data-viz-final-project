@@ -113,7 +113,7 @@ d3.csv(base_url + "police-locals.csv")
                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       let x = d3.scaleLinear()
-                .rangeRound([0, 40000]);
+                .rangeRound([0, bar_width]);
 
       let y = d3.scaleBand()
                 .rangeRound([bar_height, 0]);
@@ -162,7 +162,7 @@ d3.csv(base_url + "police-locals.csv")
       g.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + bar_width + ")")
-            .call(d3.axisBottom(x).ticks(null, "s"))
+            .call(d3.axisBottom(x))
             .append("text")
             .attr("x", 2)
             .attr("y", x(x.ticks().pop()) + 1000)

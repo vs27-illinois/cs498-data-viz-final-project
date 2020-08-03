@@ -133,8 +133,6 @@ d3.csv(base_url + "police-locals.csv")
         b_data.push(b);
       });
 
-      console.log(b_data);
-
       b_data.sort(function(a, b) { return a['total'] - b['total']; });
       x.domain([0, d3.max(b_data, function(d) { return d['total']; })]).nice();
       y.domain(b_data.map(function(d) { return d['city']; }));
@@ -148,18 +146,18 @@ d3.csv(base_url + "police-locals.csv")
           .selectAll("rect")
           .data(function(d) { return d; })
           .enter().append("rect")
-            .attr("x", function(d) { return x(d.data['city']); })
-            .attr("y", function(d) { return y(d[1]); })
-            .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-            .attr("width", x.bandwidth())
-          .on("mouseover", function() { tooltip.style("display", null); })
-          .on("mouseout", function() { tooltip.style("display", "none"); })
-          .on("mousemove", function(d) {
-            var xPosition = d3.mouse(this)[0] - 5;
-            var yPosition = d3.mouse(this)[1] - 5;
-            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text(d[1]-d[0]);
-          });
+            .attr("x", function(d) { return y(d[1]); })
+            .attr("y", function(d) { return x(d.data['city']); })
+            .attr("height", y.bandwidth())
+            .attr("width", function(d) { return x(d[0]) - x(d[1]); }));
+//          .on("mouseover", function() { tooltip.style("display", null); })
+//          .on("mouseout", function() { tooltip.style("display", "none"); })
+//          .on("mousemove", function(d) {
+//            var xPosition = d3.mouse(this)[0] - 5;
+//            var yPosition = d3.mouse(this)[1] - 5;
+//            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+//            tooltip.select("text").text(d[1]-d[0]);
+//          });
 
       g.append("g")
             .attr("class", "axis")

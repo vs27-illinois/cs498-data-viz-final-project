@@ -82,7 +82,19 @@ d3.json(base_url + "us-states.json")
                     div.transition()
                        .duration(500)
                        .style("opacity", 0);
-                });;
+                });
+
+            svg.append('path')
+                .attr('d', 'M 853 218L 853 458')
+                .style('fill', 'none')
+                .style('stroke', 'black')
+                .style('stroke-width', 1)
+                .attr('transform', 'translate(5,5)');
+
+            svg.append('text')
+                .attr('x', 890)
+                .attr('y', 468)
+                .text('Annotation')
           }).catch(err => console.log(err));
       }).catch(err => console.log(err));
   }).catch(err => console.log(err));

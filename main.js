@@ -131,7 +131,7 @@ d3.csv(base_url + "police-locals.csv")
 
       b_data.sort(function(a, b) { return b['total'] - a['total']; });
       x.domain(b_data.map(function(d) { return d['city']; }));
-      y.domain([0, d3.max(data, function(d) { return d['total']; })]).nice();
+      y.domain([0, d3.max(b_data, function(d) { return d['total']; })]).nice();
       z.domain(keys);
 
       g.append("g")

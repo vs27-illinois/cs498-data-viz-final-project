@@ -70,10 +70,11 @@ d3.json(base_url + "us-states.json")
                 .style("stroke", "red")
                 .style("stroke-width", "1")
                 .on("mouseover", function(d) {
+                    let text = 'City: ' + d['city'] + ' \n Police Force Size: ' + d['police_force_size'];
                     div.transition()
                        .duration(200)
                        .style("opacity", .9);
-                    div.text(d['city'] + '\n' + d['police_force_size'])
+                    div.text()
                        .style("left", (d3.event.pageX) + "px")
                        .style("top", (d3.event.pageY - 28) + "px");
                 })

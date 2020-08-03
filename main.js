@@ -123,10 +123,12 @@ d3.csv(base_url + "police-locals.csv")
 
       let b_data = [];
       data.forEach(function(d) {
-        b_data['city'] = d['city'];
-        b_data['total'] = d['police_force_size'];
-        b_data['Locals'] = Math.round(b_data['total'] * d['all']);
-        b_data['Non-Locals'] = b_data['total'] - b_data['Locals'];
+        var b = {};
+        b['city'] = d['city'];
+        b['total'] = d['police_force_size'];
+        b['Locals'] = Math.round(b_data['total'] * d['all']);
+        b['Non-Locals'] = b_data['total'] - b_data['Locals'];
+        b_data.push(b);
       });
 
       b_data.sort(function(a, b) { return b['total'] - a['total']; });

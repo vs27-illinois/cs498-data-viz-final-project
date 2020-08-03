@@ -9,7 +9,7 @@ let sb_width = 1000;
 let sb_height = 2000;
 
 // Width, Height and Margin of the Bar chart
-let margin = {top: 10, right: 50, bottom: 20, left: 50};
+let margin = {top: 10, right: 50, bottom: 20, left: 150};
 let bar_width = sb_width - margin.left - margin.right;
 let bar_height = sb_height - margin.top - margin.bottom;
 
@@ -168,5 +168,6 @@ d3.csv(base_url + "police-locals.csv")
 
       g.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y))
+            .attr('font-size', 11);
   }).catch(err => console.log(err));

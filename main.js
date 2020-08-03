@@ -87,13 +87,13 @@ d3.json(base_url + "us-states.json")
                 });
 
             svg.append('path')
-                .attr('d', 'M 810 170L 720 105')
+                .attr('d', 'M 910 170L 820 105')
                 .style('fill', 'none')
                 .style('stroke', 'black')
                 .style('stroke-width', 1);
 
             svg.append('text')
-                .attr('x', 600)
+                .attr('x', 700)
                 .attr('y', 100)
                 .text('New York City has the largest police force in the country');
           }).catch(err => console.log(err));

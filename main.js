@@ -52,6 +52,8 @@ d3.json(base_url + "us-states.json")
                 });
             });
 
+            let f = d3.format(",");
+
             svg.selectAll("circle")
                 .data(data)
                 .enter()
@@ -70,7 +72,7 @@ d3.json(base_url + "us-states.json")
                 .style("stroke", "red")
                 .style("stroke-width", "1")
                 .on("mouseover", function(d) {
-                    let text = 'City: ' + d['city'] + '<br/>Police Force Size: ' + d['police_force_size'];
+                    let text = 'City: ' + d['city'] + '<br/>Police Force Size: ' + f(d['police_force_size']);
                     div.transition()
                        .duration(200)
                        .style("opacity", .9);
@@ -85,16 +87,15 @@ d3.json(base_url + "us-states.json")
                 });
 
             svg.append('path')
-                .attr('d', 'M 860 275L 900 450')
+                .attr('d', 'M 810 170L 720 105')
                 .style('fill', 'none')
                 .style('stroke', 'black')
-                .style('stroke-width', 1)
-                .attr('transform', 'translate(5,5)');
+                .style('stroke-width', 1);
 
             svg.append('text')
-                .attr('x', 890)
-                .attr('y', 470)
-                .text('New York City has the largest police force in the country')
+                .attr('x', 600)
+                .attr('y', 100)
+                .text('New York City has the largest police force in the country');
           }).catch(err => console.log(err));
       }).catch(err => console.log(err));
   }).catch(err => console.log(err));

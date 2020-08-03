@@ -161,7 +161,7 @@ d3.csv(base_url + "police-locals.csv")
 
       g.append("g")
             .attr("class", "axis")
-            .attr("transform", "translate(0," + bar_width + ")")
+            .attr("transform", "translate(0," + bar_height + ")")
             .call(d3.axisBottom(x))
             .append("text")
             .attr("x", 2)

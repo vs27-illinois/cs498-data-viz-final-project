@@ -1,13 +1,17 @@
 let base_url = 'https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-final-project/master/';
 
-// SVG Width and Height
-let width = 1200;
-let height = 600;
+// Map Width and Height
+let map_width = 1200;
+let map_height = 600;
+
+// Stacked Bar Chart Width and Height
+let sb_width = 600;
+let sb_height = 1200;
 
 // Width, Height and Margin of the Bar chart
 let margin = {top: 10, right: 30, bottom: 20, left: 50};
-let bar_width = width - margin.left - margin.right;
-let bar_height = height - margin.top - margin.bottom;
+let bar_width = sb_width - margin.left - margin.right;
+let bar_height = sb_height - margin.top - margin.bottom;
 
 let div = d3.select("body")
             .append("div")
@@ -19,7 +23,7 @@ d3.csv(base_url + "police-locals.csv")
     d3.json(base_url + "us-states.json")
       .then(function(json) {
         let projection = d3.geoAlbersUsa()
-                       .translate([width/2, height/2])
+                       .translate([map_width/2, map_height/2])
                        .scale(1200);
 
         let path = d3.geoPath()
@@ -28,9 +32,9 @@ d3.csv(base_url + "police-locals.csv")
         // Create SVG element and append map to the SVG
         let svg = d3.select("#map")
     			.append("svg")
-    			.attr("width", width)
-    			.attr("height", height)
-    			.attr("viewBox", "0 0 " + width + " " + height)
+    			.attr("width", map_width)
+    			.attr("height", map_height)
+    			.attr("viewBox", "0 0 " + map_width + " " + map_height)
     			.attr("preserveAspectRatio", "xMidYMid meet");
 
         svg.selectAll("path")
@@ -102,8 +106,8 @@ d3.csv(base_url + "police-locals.csv")
 
       let svg = d3.select("#stack-bar")
                   .append("svg")
-                  .attr("width", width)
-                  .attr("height", height);
+                  .attr("width", sb_width)
+                  .attr("height", sb_height);
 
       let g = svg.append("g")
                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -161,7 +165,7 @@ d3.csv(base_url + "police-locals.csv")
             .call(d3.axisBottom(x).ticks(null, "s"))
             .append("text")
             .attr("x", 2)
-            .attr("y", x(x.ticks().pop()) + 0.5)
+            .attr("y", x(x.ticks().pop()) + 100)
             .attr("dy", "0.32em")
             .attr("fill", "#000")
             .attr("font-weight", "bold")

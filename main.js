@@ -1,48 +1,48 @@
 let base_url = 'https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-final-project/master/';
 
-// Load GeoJSON data
-d3.json(base_url + "us-states.json")
-  .then(function(json) {
-    //Width and height of map
-    let width = 1200;
-    let height = 600;
+//Width and height of map
+let width = 1200;
+let height = 600;
 
-    // D3 Projection
-    let projection = d3.geoAlbersUsa()
+let div = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+d3.csv(base_url + "police-locals.csv")
+  .then(function(data) {
+    // Load GeoJSON data
+    d3.json(base_url + "us-states.json")
+      .then(function(json) {
+        // D3 Projection
+        let projection = d3.geoAlbersUsa()
                        .translate([width/2, height/2])
                        .scale(1200);
 
-    // Define path generator
-    let path = d3.geoPath()
-                 .projection(projection);
+        // Define path generator
+        let path = d3.geoPath()
+                     .projection(projection);
 
-    let div = d3.select("body")
-                .append("div")
-                .attr("class", "tooltip")
-                .style("opacity", 0);
-
-    //Create SVG element and append map to the SVG
-    let svg = d3.select("#map")
+        //Create SVG element and append map to the SVG
+        let svg = d3.select("#map")
     			.append("svg")
     			.attr("width", width)
     			.attr("height", height)
     			.attr("viewBox", "0 0 " + width + " " + height)
     			.attr("preserveAspectRatio", "xMidYMid meet");
 
-	// Bind the data to the SVG and create one path per GeoJSON feature
-	svg.selectAll("path")
-		.data(json.features)
-		.enter()
-		.append("path")
-		.attr("d", path)
-		.style("stroke", "#fff")
-		.style("stroke-width", "1")
-		.style("fill", "rgb(213,222,217)");
+        // Bind the data to the SVG and create one path per GeoJSON feature
+        svg.selectAll("path")
+            .data(json.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .style("stroke", "#fff")
+            .style("stroke-width", "1")
+            .style("fill", "rgb(213,222,217)");
 
-	d3.csv(base_url + "us-city-lat-long.csv")
-      .then(function(city) {
-        d3.csv(base_url + "police-locals.csv")
-          .then(function(data) {
+        d3.csv(base_url + "us-city-lat-long.csv")
+          .then(function(city) {
             data.forEach(function(d) {
                 city.forEach(function(c) {
                     if (d['city'] === c['city']) {
@@ -98,4 +98,14 @@ d3.json(base_url + "us-states.json")
                 .text('New York City has the largest police force in the country');
           }).catch(err => console.log(err));
       }).catch(err => console.log(err));
+
+      let dataset = d3.layout.stack()(["Local", "Non-Local"].map(function(type) {
+        return data.map(function(d) {
+          let value = d['police_force_size'];
+          if (type == 'Local') {
+              value = Math.round(value * d['all']);
+          }
+          return {x: parse(d['city']), y: value};
+        });
+      }));
   }).catch(err => console.log(err));

@@ -128,19 +128,15 @@ d3.csv(base_url + "police-locals.csv")
         var b = {};
         b['city'] = d['city'];
         b['total'] = parseInt(d['police_force_size']);
-        b['Locals'] = Math.round(b_data['total'] * d['all']);
-        b['Non-Locals'] = b_data['total'] - b_data['Locals'];
+        b['Locals'] = Math.round(b['total'] * d['all']);
+        b['Non-Locals'] = b['total'] - b['Locals'];
         b_data.push(b);
       });
 
       console.log(b_data);
 
-      let m = d3.max(b_data, function(d) { return d['total']; });
-
-      console.log(m);
-
       b_data.sort(function(a, b) { return b['total'] - a['total']; });
-      x.domain([0, 40000]).nice();
+      x.domain([0, d3.max(b_data, function(d) { return d['total']; })]).nice();
       y.domain(b_data.map(function(d) { return d['city']; }));
       z.domain(keys);
 

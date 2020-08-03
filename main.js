@@ -7,7 +7,7 @@ let map_height = 600;
 // Stacked Bar Chart Width, Height and Margin
 let sb_width = 1000;
 let sb_height = 2000;
-let margin = {top: 30, right: 10, bottom: 10, left: 150};
+let margin = {top: 30, right: 30, bottom: 30, left: 150};
 
 let div = d3.select("body")
             .append("div")

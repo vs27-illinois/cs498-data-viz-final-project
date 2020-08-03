@@ -113,7 +113,7 @@ d3.csv(base_url + "police-locals.csv")
         b_data.push(b);
       });
 
-      b_data.sort(function(a, b) { return a['total'] - b['total']; });
+      b_data.sort(function(a, b) { return b['total'] - a['total']; });
 
       let svg = d3.select("#stack-bar")
                   .append("svg")

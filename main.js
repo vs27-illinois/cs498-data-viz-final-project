@@ -138,23 +138,20 @@ d3.csv(base_url + "police-locals.csv")
       y.domain(b_data.map(function(d) { return d['city']; }));
       z.domain(keys);
 
-      series = d3.stack().keys(keys)(b_data);
-      console.log(series);
-
-//      g.append("g")
-//          .selectAll("g")
-//          .data(d3.stack().keys(keys)(b_data))
-//          .enter()
-//          .append("g")
-//          .attr("fill", function(d) { return z(d.key); })
-//          .selectAll("rect")
-//          .data(function(d) { return d; })
-//          .enter()
-//          .append("rect")
-//          .attr("x", function(d) { return y(d[1]); })
-//          .attr("y", function(d) { return x(d.data['city']); })
-//          .attr("height", y.bandwidth())
-//          .attr("width", function(d) { return x(d[0]) - x(d[1]); });
+      g.append("g")
+          .selectAll("g")
+          .data(d3.stack().keys(keys)(b_data))
+          .enter()
+          .append("g")
+          .attr("fill", function(d) { console.log('1:' + d); return z(d.key); })
+          .selectAll("rect")
+          .data(function(d) { console.log('2:' + d); return d; })
+          .enter()
+          .append("rect")
+          .attr("x", function(d) { console.log('3:' + d); return y(d[1]); })
+          .attr("y", function(d) { console.log('4:' + d); return x(d.data['city']); })
+          .attr("height", y.bandwidth())
+          .attr("width", function(d) { console.log('5:' + d); /*return x(d[0]) - x(d[1]);*/ return 100; });
 //          .on("mouseover", function() { tooltip.style("display", null); })
 //          .on("mouseout", function() { tooltip.style("display", "none"); })
 //          .on("mousemove", function(d) {

@@ -109,9 +109,7 @@ d3.csv(base_url + "police-locals.csv")
                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       let x = d3.scaleLinear()
-                .rangeRound([0, bar_width])
-                .paddingInner(0.05)
-                .align(0.1);
+                .rangeRound([0, bar_width]);
 
       let y = d3.scaleBand()
                 .rangeRound([bar_height, 0]);

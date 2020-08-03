@@ -4,7 +4,7 @@ let base_url = 'https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-f
 d3.json(base_url + "us-states.json")
   .then(function(json) {
     //Width and height of map
-    let width = 1000;
+    let width = 1200;
     let height = 600;
 
     // D3 Projection

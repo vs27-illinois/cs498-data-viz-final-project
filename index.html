@@ -5,14 +5,24 @@
     <title>Police Residence</title>
 </head>
 <body>
-    <div align='center'>
+    <div class="container" align="center">
         <h1>Do The Police Live In The Cities They Serve?</h1>
         <p>
             Source: FiveThirtyEight [<a href="https://github.com/fivethirtyeight/data/tree/master/police-locals">https://github.com/fivethirtyeight/data/tree/master/police-locals</a>]
         </p>
-        <h2>Cities With The 75 Largest Police Forces</h2>
-        <div id="map"></div>
-        <h2>Number Of Police Officers Who Live In The City They Serve</h2>
+        <hr/>
+        <div class="slides" id="slide-1">
+            <h2>Cities With The 75 Largest Police Forces</h2>
+            <div id="map"></div>
+        </div>
+        <div class="slides" id="slide-2">
+            <h2>Number Of Police Officers Who Live In The City They Serve</h2>
+            <div id="stacked-bar"></div>
+        </div>
+        <div class="slides" id="slide-3">
+            <h2>Percentage Of Police Officers Who Live In The City They Serve (By Race)</h2>
+            <div id="bar"></div>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>

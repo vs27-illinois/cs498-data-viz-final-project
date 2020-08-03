@@ -162,14 +162,7 @@ d3.csv(base_url + "police-locals.csv")
       g.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + bar_height + ")")
-            .call(d3.axisBottom(x))
-            .append("text")
-            .attr("x", 2)
-            .attr("y", x(x.ticks().pop()) + 40000)
-            .attr("dy", "0.32em")
-            .attr("fill", "#000")
-            .attr("font-weight", "bold")
-            .attr("text-anchor", "start");
+            .call(d3.axisBottom(x));
 
       g.append("g")
             .attr("class", "axis")

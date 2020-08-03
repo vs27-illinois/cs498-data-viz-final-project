@@ -108,12 +108,12 @@ d3.csv(base_url + "police-locals.csv")
       let g = svg.append("g")
                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      let x = d3.scaleBand()
+      let x = d3.scaleLinear()
                 .rangeRound([0, bar_width])
                 .paddingInner(0.05)
                 .align(0.1);
 
-      let y = d3.scaleLinear()
+      let y = d3.scaleBand()
                 .rangeRound([bar_height, 0]);
 
       let z = d3.scaleOrdinal()
@@ -132,44 +132,44 @@ d3.csv(base_url + "police-locals.csv")
       });
 
       b_data.sort(function(a, b) { return b['total'] - a['total']; });
-      x.domain(b_data.map(function(d) { return d['city']; }));
-      y.domain([0, d3.max(b_data, function(d) { return d['total']; })]).nice();
+      x.domain([0, d3.max(b_data, function(d) { return d['total']; })]).nice();
+      y.domain(b_data.map(function(d) { return d['city']; }));
       z.domain(keys);
 
-      g.append("g")
-          .selectAll("g")
-          .data(d3.stack().keys(keys)(b_data))
-          .enter().append("g")
-            .attr("fill", function(d) { return z(d.key); })
-          .selectAll("rect")
-          .data(function(d) { return d; })
-          .enter().append("rect")
-            .attr("x", function(d) { return x(d.data['city']); })
-            .attr("y", function(d) { return y(d[1]); })
-            .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-            .attr("width", x.bandwidth())
-          .on("mouseover", function() { tooltip.style("display", null); })
-          .on("mouseout", function() { tooltip.style("display", "none"); })
-          .on("mousemove", function(d) {
-            var xPosition = d3.mouse(this)[0] - 5;
-            var yPosition = d3.mouse(this)[1] - 5;
-            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text(d[1]-d[0]);
-          });
+//      g.append("g")
+//          .selectAll("g")
+//          .data(d3.stack().keys(keys)(b_data))
+//          .enter().append("g")
+//            .attr("fill", function(d) { return z(d.key); })
+//          .selectAll("rect")
+//          .data(function(d) { return d; })
+//          .enter().append("rect")
+//            .attr("x", function(d) { return x(d.data['city']); })
+//            .attr("y", function(d) { return y(d[1]); })
+//            .attr("height", function(d) { return y(d[0]) - y(d[1]); })
+//            .attr("width", x.bandwidth())
+//          .on("mouseover", function() { tooltip.style("display", null); })
+//          .on("mouseout", function() { tooltip.style("display", "none"); })
+//          .on("mousemove", function(d) {
+//            var xPosition = d3.mouse(this)[0] - 5;
+//            var yPosition = d3.mouse(this)[1] - 5;
+//            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+//            tooltip.select("text").text(d[1]-d[0]);
+//          });
 
       g.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + bar_height + ")")
-            .call(d3.axisBottom(x));
-
-      g.append("g")
-            .attr("class", "axis")
-            .call(d3.axisLeft(y).ticks(null, "s"))
-          .append("text")
+            .call(d3.axisBottom(x).ticks(null, "s"))
+            .append("text")
             .attr("x", 2)
-            .attr("y", y(y.ticks().pop()) + 0.5)
+            .attr("y", x(x.ticks().pop()) + 0.5)
             .attr("dy", "0.32em")
             .attr("fill", "#000")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start");
+
+      g.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y));
   }).catch(err => console.log(err));

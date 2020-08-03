@@ -16,6 +16,9 @@ h2 {
 
 div.slides {
     padding-top: 15px;
+}
+
+div#slide-2 {
     margin: 0px 200px;
 }
 

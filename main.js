@@ -140,26 +140,26 @@ d3.csv(base_url + "police-locals.csv")
       y.domain(b_data.map(function(d) { return d['city']; }));
       z.domain(keys);
 
-//      g.append("g")
-//          .selectAll("g")
-//          .data(d3.stack().keys(keys)(b_data))
-//          .enter().append("g")
-//            .attr("fill", function(d) { return z(d.key); })
-//          .selectAll("rect")
-//          .data(function(d) { return d; })
-//          .enter().append("rect")
-//            .attr("x", function(d) { return x(d.data['city']); })
-//            .attr("y", function(d) { return y(d[1]); })
-//            .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-//            .attr("width", x.bandwidth())
-//          .on("mouseover", function() { tooltip.style("display", null); })
-//          .on("mouseout", function() { tooltip.style("display", "none"); })
-//          .on("mousemove", function(d) {
-//            var xPosition = d3.mouse(this)[0] - 5;
-//            var yPosition = d3.mouse(this)[1] - 5;
-//            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-//            tooltip.select("text").text(d[1]-d[0]);
-//          });
+      g.append("g")
+          .selectAll("g")
+          .data(d3.stack().keys(keys)(b_data))
+          .enter().append("g")
+            .attr("fill", function(d) { return z(d.key); })
+          .selectAll("rect")
+          .data(function(d) { return d; })
+          .enter().append("rect")
+            .attr("x", function(d) { return x(d.data['city']); })
+            .attr("y", function(d) { return y(d[1]); })
+            .attr("height", function(d) { return y(d[0]) - y(d[1]); })
+            .attr("width", x.bandwidth())
+          .on("mouseover", function() { tooltip.style("display", null); })
+          .on("mouseout", function() { tooltip.style("display", "none"); })
+          .on("mousemove", function(d) {
+            var xPosition = d3.mouse(this)[0] - 5;
+            var yPosition = d3.mouse(this)[1] - 5;
+            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+            tooltip.select("text").text(d[1]-d[0]);
+          });
 
       g.append("g")
             .attr("class", "axis")

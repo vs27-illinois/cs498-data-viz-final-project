@@ -108,7 +108,7 @@ function create_map(data) {
             path.attr("stroke-dasharray", totalLength + " " + totalLength)
                 .attr("stroke-dashoffset", totalLength)
                 .transition()
-                .duration(1000)
+                .duration(500)
                 .delay(15)
                 .ease(d3.easeLinear)
                 .attr("stroke-dashoffset", 0);
@@ -120,7 +120,7 @@ function create_map(data) {
                 .style("opacity", 0)
                 .transition()
                 .duration(1000)
-                .delay(18)
+                .delay(20)
                 .style("opacity", 1);
           }).catch(err => console.log(err));
       }).catch(err => console.log(err));

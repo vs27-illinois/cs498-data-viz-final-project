@@ -10,8 +10,8 @@ let sb_height = 2000;
 let margin = {top: 30, right: 30, bottom: 30, left: 150};
 
 // Bar Chart Width, Height and Margin
-let b_width = 600;
-let b_height = 500;
+let b_width = 500;
+let b_height = 300;
 
 let f = d3.format(",");
 
@@ -289,6 +289,8 @@ function create_slide3(data) {
     arr.push(b);
     b_data[d['city']] = arr;
   });
+
+  console.log(b_data)
 
   let svg = d3.select("#bar")
                 .append("svg")

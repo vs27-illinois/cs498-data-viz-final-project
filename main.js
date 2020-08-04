@@ -312,7 +312,7 @@ function update_slide3(data) {
 
       y = d3.scaleLinear()
           .domain([0, d3.max(data, d => d.value)]).nice()
-          .range([height - margin.bottom, margin.top])
+          .range([b_height - margin.bottom, margin.top])
 
         svg.append("g")
                 .attr("class", "axis")

@@ -293,13 +293,13 @@ function create_slide3(data) {
   svg.selectAll("rect")
         .data(f_data)
         .enter().append("rect")
+        .attr("x", d => x(d['race']))
         .attr("width", 30)
         .attr("fill", "#10a778");
 
   svg.selectAll("rect")
         .transition().duration(1000)
         .delay((d, i) => i * 15)
-        .attr("x", d => x(d['race']))
         .attr("y", d => y(d['count']))
         .attr("height", d => b_height - y(d['count']));
 

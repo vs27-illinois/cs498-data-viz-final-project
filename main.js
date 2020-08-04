@@ -6,8 +6,8 @@ let map_height = 600;
 
 // Stacked Bar Chart Width, Height and Margin
 let sb_width = 1000;
-let sb_height = 2000;
-let margin = {top: 30, right: 30, bottom: 30, left: 150};
+let sb_height = 2100;
+let margin = {top: 100, right: 30, bottom: 30, left: 150};
 
 // Bar Chart Width, Height and Margin
 let b_width = 500;

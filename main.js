@@ -88,14 +88,14 @@ d3.csv(base_url + "police-locals.csv")
                 });
 
             svg.append('path')
-                .attr('d', 'M 910 170L 820 105')
+                .attr('d', 'M 910 170L 820 75')
                 .style('fill', 'none')
                 .style('stroke', 'black')
                 .style('stroke-width', 1);
 
             svg.append('text')
-                .attr('x', 700)
-                .attr('y', 100)
+                .attr('x', 650)
+                .attr('y', 70)
                 .text('New York City has the largest police force in the country');
           }).catch(err => console.log(err));
       }).catch(err => console.log(err));
@@ -175,4 +175,49 @@ d3.csv(base_url + "police-locals.csv")
             .style("font-size", "12")
             .call(d3.axisLeft(y).tickSizeOuter(0))
             .call(g => g.selectAll(".domain").remove());
+
+      svg.append('path')
+         .attr('d', 'M 910 170L 820 75')
+         .style('fill', 'none')
+         .style('stroke', 'black')
+         .style('stroke-width', 1);
+
+      svg.append('path')
+         .attr('d', 'M 910 150L 820 95')
+         .style('fill', 'none')
+         .style('stroke', 'black')
+         .style('stroke-width', 1);
+
+      svg.append('text')
+         .attr('x', 650)
+         .attr('y', 70)
+         .text('Most of the Police officers in Chicago and Philly PD are living in the city');
+
+      svg.append('path')
+         .attr('d', 'M 810 140L 620 55')
+         .style('fill', 'none')
+         .style('stroke', 'black')
+         .style('stroke-width', 1);
+
+      svg.append('text')
+         .attr('x', 650)
+         .attr('y', 70)
+         .text('93% of the Police officers in Laredo PD are living in the city which is the highest among all the cities in the list');
+
+      svg.append('path')
+         .attr('d', 'M 910 170L 820 75')
+         .style('fill', 'none')
+         .style('stroke', 'black')
+         .style('stroke-width', 1);
+
+      svg.append('path')
+         .attr('d', 'M 910 150L 820 95')
+         .style('fill', 'none')
+         .style('stroke', 'black')
+         .style('stroke-width', 1);
+
+      svg.append('text')
+         .attr('x', 650)
+         .attr('y', 70)
+         .text('Most of the Police officers in Richmond and Minneapolis PD are living out of the city');
   }).catch(err => console.log(err));

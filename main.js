@@ -295,8 +295,6 @@ function create_slide3(data) {
     b_data.push(b);
   });
 
-  console.log(b_data);
-
   let svg = d3.select("#bar")
               .append("svg")
               .attr("viewBox", [0, 0, b_width, b_height]);

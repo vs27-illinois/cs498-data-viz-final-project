@@ -304,9 +304,9 @@ function create_slide3(data) {
         .attr("height", d => b_height - b_margin.bottom - y(d['count']));
 
   let w = f_data[0], nw = f_data[1];
-  let text1 = add_annotation(svg, 'M 107 40L 107 370', [80,30],
+  let text1 = add_annotation(svg, 'M 107 40L 107 370', [80,35],
               'Among the White cops in ' + w['city'] + ' PD, ' + (w['count'] * 100) + '% are living in the city', 9);
-  let text2 = add_annotation(svg, 'M 183 70L 183 370', [140,60],
+  let text2 = add_annotation(svg, 'M 183 70L 183 370', [140,65],
               'Among the Non-White cops in ' + nw['city'] + ' PD, ' + (nw['count'] * 100) + '% are living in the city', 9);
 
   d3.select("#cities").on("change", () => {

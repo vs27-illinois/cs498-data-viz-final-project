@@ -272,14 +272,14 @@ function create_slide3(data) {
   svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + (b_height - b_margin.bottom) + ")")
-            .attr('font-size', 8)
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x))
+            .attr('font-size', 8);
 
   svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(" + b_margin.left + ",0)")
-            .attr('font-size', 8)
             .call(d3.axisLeft(y).ticks(10, "%"))
+            .attr('font-size', 8)
             .append("text")
             .attr("y", 6)
             .attr("dy", "0.71em")

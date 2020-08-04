@@ -333,8 +333,8 @@ function create_slide3(data) {
           .attr("width", x.bandwidth())
           .attr("fill", "#10a778");
 
-  d3.select("#cities").on("change", (d) => {
-       let sq = d3.select(this).property("value");
+  d3.select("#cities").on("change", () => {
+       let sq = d3.select("#cities").property("value");
        let data = b_data.filter(d => d['city'] === sq)
 
        svg.selectAll("bar")

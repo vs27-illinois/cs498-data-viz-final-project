@@ -261,6 +261,8 @@ function create_slide2(data) {
 }
 
 function create_slide3(data) {
+  console.log(data);
+
   let b_data = [];
 
   let select = d3.select('#cities');

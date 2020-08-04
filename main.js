@@ -287,7 +287,6 @@ function create_slide3(data) {
 
   let f_data = b_data.filter(d => {
       let sq = d3.select("#cities").property("value");
-      console.log('sq: ' + sq);
       return d['city'] === sq;
     });
 
@@ -304,14 +303,17 @@ function create_slide3(data) {
         .delay((d, i) => i * 10)
         .attr("height", d => b_height - b_margin.bottom - y(d['count']));
 
-  add_annotation(svg, 'M 107 40L 107 370', [80,30],
+  let text1 = add_annotation(svg, 'M 107 40L 107 370', [80,30],
                    'White cops');
-  add_annotation(svg, 'M 183 70L 183 370', [140,60],
-                     'Non-white cops');
+  let text2 = add_annotation(svg, 'M 183 70L 183 370', [140,60],
+                     'Non-White cops');
 
   d3.select("#cities").on("change", () => {
        let sq = d3.select("#cities").property("value");
        let data = b_data.filter(d => d['city'] === sq)
+
+       text1.text('White cop in ' + sq);
+       text2.text('Non-White cop in ' + sq);
 
        svg.selectAll("rect")
          .data(data)
@@ -339,15 +341,19 @@ function add_annotation(svg, l_coord, t_coord, note) {
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0);
 
+    let text = null;
     if (t_coord.length > 0) {
-        svg.append('text')
-            .attr('x', t_coord[0])
-            .attr('y', t_coord[1])
-            .text(note)
-            .style("opacity", 0)
-            .transition()
-            .duration(1000)
-            .delay(1100)
-            .style("opacity", 1);
+        text = svg.append('text')
+                .attr('x', t_coord[0])
+                .attr('y', t_coord[1])
+                .attr('font-size', 10)
+                .text(note)
+                .style("opacity", 0)
+                .transition()
+                .duration(1000)
+                .delay(1100)
+                .style("opacity", 1);
     }
+
+    return text;
 }

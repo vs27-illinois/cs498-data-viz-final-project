@@ -74,6 +74,7 @@ function create_map(data) {
                 .attr("cy", d => projection([d['long'], d['lat']])[1])
                 .attr("r", d => d['police_force_size'] / 500)
                 .style("fill", "#d25c4d")
+                .style("opacity", 0.85)
                 .style("stroke", "#ff0000")
                 .style("stroke-width", "1")
                 .on("mouseover", d => {
@@ -91,26 +92,13 @@ function create_map(data) {
                        .style("opacity", 0);
                 });
 
-            svg.selectAll("circle")
-                .style("opacity", 0)
-                .transition()
-                .duration(1000)
-                .delay((d, i) => i * 15)
-                .style("opacity", 0.85);
-
             svg.append('path')
-                .transition()
-                .duration(1000)
-                .delay((d, i) => i * 20)
                 .attr('d', 'M 910 170L 820 75')
                 .style('fill', 'none')
                 .style('stroke', 'black')
                 .style('stroke-width', 1);
 
             svg.append('text')
-                .transition()
-                .duration(1000)
-                .delay((d, i) => i * 25)
                 .attr('x', 650)
                 .attr('y', 70)
                 .text('New York City has the largest police force in the country');

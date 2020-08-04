@@ -272,18 +272,18 @@ function create_slide3(data) {
   svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + (b_height - b_margin.bottom) + ")")
-            .call(d3.axisBottom(x))
-            .attr('font-size', 8);
+            .attr('font-size', 8)
+            .call(d3.axisBottom(x));
 
   svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(" + b_margin.left + ",0)")
+            .attr('font-size', 8)
             .call(d3.axisLeft(y).ticks(10, "%"))
             .append("text")
             .attr("y", 6)
             .attr("dy", "0.71em")
-            .attr("text-anchor", "end")
-            .attr('font-size', 8);
+            .attr("text-anchor", "end");
 
   let f_data = b_data.filter(d => {
       let sq = d3.select("#cities").property("value");

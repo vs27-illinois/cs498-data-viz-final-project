@@ -9,6 +9,11 @@ let sb_width = 1000;
 let sb_height = 2000;
 let margin = {top: 30, right: 30, bottom: 30, left: 150};
 
+// Bar Chart Width, Height and Margin
+let b_width = 600;
+let b_height = 500;
+let margin = {top: 30, right: 30, bottom: 30, left: 150};
+
 let f = d3.format(",");
 
 let div = d3.select("body")
@@ -129,7 +134,7 @@ function create_slide2(data) {
               .attr("viewBox", [0, 0, sb_width, sb_height]);
 
   let x = d3.scaleLinear()
-            .domain([0, d3.max(b_data, function(d) { return d['total']; })])
+            .domain([0, d3.max(b_data, function(d) { return d['total']; })]).nice()
             .range([margin.left, sb_width - margin.right]);
 
   let y = d3.scaleBand()
@@ -288,11 +293,19 @@ function create_slide3(data) {
 
   let svg = d3.select("#bar")
                 .append("svg")
-                .attr("viewBox", [0, 0, sb_width, sb_height]);
+                .attr("viewBox", [0, 0, b_width, b_height]);
 
-  x = d3.scaleBand()
-          .domain(d3.range(data.length))
-          .range([margin.left, width - margin.right])
-          .padding(1.0);
+//  x = d3.scaleBand()
+//      .domain(d3.range(b_data.length))
+//      .range([margin.left, b_width - margin.right])
+//      .padding(1.0);
+//
+//  y = d3.scaleLinear()
+//      .domain([0, d3.max(data, d => d.value)]).nice()
+//      .range([height - margin.bottom, margin.top])
 
+}
+
+function onCityChanged(e) {
+    console.log(e);
 }

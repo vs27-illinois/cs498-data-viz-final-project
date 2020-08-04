@@ -150,6 +150,7 @@ function create_slide2(data) {
       .data(d => d)
       .enter()
       .append("rect")
+      .transition().duration(1000)
       .attr("x", d => x(d[0]))
       .attr("y", d => y(d.data['city']))
       .attr("height", y.bandwidth())

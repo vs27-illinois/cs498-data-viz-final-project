@@ -147,7 +147,7 @@ d3.csv(base_url + "police-locals.csv")
           .attr("height", y.bandwidth())
           .attr("width", function(d) { return x(d[1]) - x(d[0]); })
           .on("mouseover", function(d) {
-              let text = 'City: ' + d.data['city'] + '<br/># of Locals: ' + f(d.data['Locals'] +
+              let text = 'City: ' + d.data['city'] + '<br/># of Locals: ' + f(d.data['Locals']) +
                          '<br/># of Non-Locals: ' + f(d.data['Non-Locals']);
               div.transition()
                  .duration(200)

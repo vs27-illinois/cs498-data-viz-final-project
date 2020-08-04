@@ -271,27 +271,27 @@ function create_slide3(data) {
     var b = {};
     b['city'] = ['city'];
     b['race'] = 'White';
-    b['count'] = (d['white'] !== '**') ? parseFloat(d['white']) * 100 : 0;
+    b['count'] = (d['white'] !== '**') ? parseFloat(d['white']) : 0;
     b_data.push(b);
     b = {};
     b['city'] = ['city'];
     b['race'] = 'Non-White';
-    b['count'] = (d['non-white'] !== '**') ? parseFloat(d['non-white']) * 100 : 0;
+    b['count'] = (d['non-white'] !== '**') ? parseFloat(d['non-white']) : 0;
     b_data.push(b);
     b = {};
     b['city'] = ['city'];
     b['race'] = 'Black';
-    b['count'] = (d['black'] !== '**') ? parseFloat(d['black']) * 100 : 0;
+    b['count'] = (d['black'] !== '**') ? parseFloat(d['black']) : 0;
     b_data.push(b);
     b = {};
     b['city'] = ['city'];
     b['race'] = 'Hispanic';
-    b['count'] = (d['hispanic'] !== '**') ? parseFloat(d['hispanic']) * 100 : 0;
+    b['count'] = (d['hispanic'] !== '**') ? parseFloat(d['hispanic']) : 0;
     b_data.push(b);
     b = {};
     b['city'] = ['city'];
     b['race'] = 'Asian';
-    b['count'] = (d['asian'] !== '**') ? parseFloat(d['asian']) * 100 : 0;
+    b['count'] = (d['asian'] !== '**') ? parseFloat(d['asian']) : 0;
     b_data.push(b);
   });
 
@@ -305,7 +305,7 @@ function create_slide3(data) {
               .padding(0.1);
 
   let y = d3.scaleLinear()
-              .domain([0, 1]).nice()
+              .domain([0, d3.max(b_data, d => d['count'])]).nice()
               .range([b_height - b_margin.bottom, b_margin.top])
 
   svg.append("g")

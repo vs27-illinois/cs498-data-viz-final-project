@@ -22,7 +22,7 @@ let div = d3.select("body")
             .style("opacity", 0);
 
 d3.csv(base_url + "police-locals.csv")
-  .then(function(data) {
+  .then(data => {
       create_map(data);
       create_slide2(data);
       create_slide3(data);
@@ -30,7 +30,7 @@ d3.csv(base_url + "police-locals.csv")
 
 function create_map(data) {
     d3.json(base_url + "us-states.json")
-      .then(function(json) {
+      .then(json => {
         let projection = d3.geoAlbersUsa()
                        .translate([map_width/2, map_height/2])
                        .scale(1200);
@@ -56,9 +56,9 @@ function create_map(data) {
             .style("fill", "#e5e5e5");
 
         d3.csv(base_url + "us-city-lat-long.csv")
-          .then(function(city) {
-            data.forEach(function(d) {
-                city.forEach(function(c) {
+          .then(city => {
+            data.forEach(d => {
+                city.forEach(c => {
                     if (d['city'] === c['city']) {
                       d['lat'] = c['lat'];
                       d['long'] = c['long'];
@@ -70,20 +70,14 @@ function create_map(data) {
                 .data(data)
                 .enter()
                 .append("circle")
-                .attr("cx", function(d) {
-                    return projection([d['long'], d['lat']])[0];
-                })
-                .attr("cy", function(d) {
-                    return projection([d['long'], d['lat']])[1];
-                })
-                .attr("r", function(d) {
-                    return d['police_force_size'] / 500;
-                })
+                .attr("cx", d => projection([d['long'], d['lat']])[0])
+                .attr("cy", d => projection([d['long'], d['lat']])[1])
+                .attr("r", d => d['police_force_size'] / 500)
                 .style("fill", "#d25c4d")
                 .style("opacity", 0.85)
                 .style("stroke", "#ff0000")
                 .style("stroke-width", "1")
-                .on("mouseover", function(d) {
+                .on("mouseover", d => {
                     let text = 'City: ' + d['city'] + '<br/># of Officers: ' + f(d['police_force_size']);
                     div.transition()
                        .duration(200)
@@ -92,7 +86,7 @@ function create_map(data) {
                        .style("left", (d3.event.pageX) + "px")
                        .style("top", (d3.event.pageY - 28) + "px");
                 })
-                .on("mouseout", function(d) {
+                .on("mouseout", d => {
                     div.transition()
                        .duration(500)
                        .style("opacity", 0);
@@ -118,8 +112,8 @@ function create_slide2(data) {
 
   let b_data = [];
 
-  data.forEach(function(d) {
-    var b = {};
+  data.forEach(d => {
+    let b = {};
     b['city'] = d['city'];
     b['total'] = parseInt(d['police_force_size']);
     b['Locals'] = Math.round(b['total'] * d['all']);
@@ -127,18 +121,18 @@ function create_slide2(data) {
     b_data.push(b);
   });
 
-  b_data.sort(function(a, b) { return b['total'] - a['total']; });
+  b_data.sort((a, b) => b['total'] - a['total']);
 
   let svg = d3.select("#stack-bar")
               .append("svg")
               .attr("viewBox", [0, 0, sb_width, sb_height]);
 
   let x = d3.scaleLinear()
-            .domain([0, d3.max(b_data, function(d) { return d['total']; })]).nice()
+            .domain([0, d3.max(b_data, d => d['total'])]).nice()
             .range([margin.left, sb_width - margin.right]);
 
   let y = d3.scaleBand()
-            .domain(b_data.map(function(d) { return d['city']; }))
+            .domain(b_data.map(d => d['city']))
             .range([margin.top, sb_height - margin.bottom])
             .padding(0.08);
 
@@ -151,16 +145,16 @@ function create_slide2(data) {
       .data(d3.stack().keys(keys)(b_data))
       .enter()
       .append("g")
-      .attr("fill", function(d) { return z(d.key); })
+      .attr("fill", d => z(d.key))
       .selectAll("rect")
-      .data(function(d) { return d; })
+      .data(d => d)
       .enter()
       .append("rect")
-      .attr("x", function(d) { return x(d[0]); })
-      .attr("y", function(d) { return y(d.data['city']); })
+      .attr("x", d => x(d[0]))
+      .attr("y", d => y(d.data['city']))
       .attr("height", y.bandwidth())
-      .attr("width", function(d) { return x(d[1]) - x(d[0]); })
-      .on("mouseover", function(d) {
+      .attr("width", d => x(d[1]) - x(d[0]))
+      .on("mouseover", d => {
           let text = 'City: ' + d.data['city'] + '<br/># of Locals: ' + f(d.data['Locals']) +
                      '<br/># of Non-Locals: ' + f(d.data['Non-Locals']);
           div.transition()
@@ -170,7 +164,7 @@ function create_slide2(data) {
              .style("left", (d3.event.pageX) + "px")
              .style("top", (d3.event.pageY - 28) + "px");
       })
-      .on("mouseout", function(d) {
+      .on("mouseout", d => {
           div.transition()
              .duration(500)
              .style("opacity", 0);
@@ -239,20 +233,20 @@ function create_slide2(data) {
     .data(colors)
     .enter().append("g")
     .attr("class", "legend")
-    .attr("transform", function(d, i) {return "translate(600," + (300 + (i * 30)) + ")";});
+    .attr("transform", (d, i) => "translate(600," + (300 + (i * 30)) + ")");
 
   legend.append("rect")
     .attr("x", 150)
     .attr("width", 18)
     .attr("height", 18)
-    .style("fill", function(d, i) {return colors.slice()[i];});
+    .style("fill", (d, i) => colors.slice()[i]);
 
   legend.append("text")
     .attr("x", 175)
     .attr("y", 9)
     .attr("dy", ".35em")
     .style("text-anchor", "start")
-    .text(function(d, i) {
+    .text((d, i) => {
       switch (i) {
         case 0: return "Locals";
         case 1: return "Non-Locals";
@@ -265,10 +259,10 @@ function create_slide3(data) {
 
   let select = d3.select('#cities');
 
-  data.forEach(function(d) {
+  data.forEach(d => {
     select.append('option').attr('value', d['city']).text(d['city']);
 
-    var b = {};
+    let b = {};
     b['city'] = ['city'];
     b['race'] = 'White';
     b['count'] = (d['white'] !== '**') ? parseFloat(d['white']) : 0;
@@ -323,7 +317,7 @@ function create_slide3(data) {
             .attr("text-anchor", "end")
             .text("Count");
 
-  let f_data = b_data.filter(function(d) {
+  let f_data = b_data.filter(d => {
       let sq = d3.select("#cities").property("value");
       console.log('sq: ' + sq);
       return d['city'] === sq;
@@ -338,13 +332,13 @@ function create_slide3(data) {
           .attr("height", d => b_height - y(d['count']))
           .attr("width", x.bandwidth());
 
-  d3.select("#cities").on("change", function() {
+  d3.select("#cities").on("change", () => {
      applyFilter(b_data, svg, this.value);
    });
 }
 
 function applyFilter(b_data, svg, value) {
-  let data = b_data.filter(function(d) {return d['city'] === value;})
+  let data = b_data.filter(d => d['city'] === value)
 
   svg.selectAll(".bar")
     .data(data)

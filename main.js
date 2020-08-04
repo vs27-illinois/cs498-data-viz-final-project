@@ -10,8 +10,8 @@ let sb_height = 2000;
 let margin = {top: 30, right: 30, bottom: 30, left: 150};
 
 // Bar Chart Width, Height and Margin
-let b_width = 300;
-let b_height = 150;
+let b_width = 500;
+let b_height = 300;
 
 let f = d3.format(",");
 
@@ -301,7 +301,7 @@ function create_slide3(data) {
   let x = d3.scaleBand()
               .domain(b_data.map(function(d) { return d['race']; }))
               .range([margin.left, b_width - margin.right])
-              .padding(1.0);
+              .padding(0.1);
 
   let y = d3.scaleLinear()
               .domain([0, d3.max(data, d => d.value)]).nice()

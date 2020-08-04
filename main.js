@@ -226,7 +226,7 @@ d3.csv(base_url + "police-locals.csv")
         .data(colors)
         .enter().append("g")
         .attr("class", "legend")
-        .attr("transform", function(d, i) {return "translate(600," + 300 + (i * 30) + ")";});
+        .attr("transform", function(d, i) {return "translate(600," + (300 + (i * 30)) + ")";});
 
       legend.append("rect")
         .attr("x", 150)

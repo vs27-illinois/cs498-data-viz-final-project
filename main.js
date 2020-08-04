@@ -70,7 +70,6 @@ function create_map(data) {
                 .data(data)
                 .enter()
                 .append("circle")
-                .transition().duration(1000)
                 .attr("cx", d => projection([d['long'], d['lat']])[0])
                 .attr("cy", d => projection([d['long'], d['lat']])[1])
                 .attr("r", d => d['police_force_size'] / 500)

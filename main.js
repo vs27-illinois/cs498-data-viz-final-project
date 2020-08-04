@@ -295,6 +295,8 @@ function create_slide3(data) {
     b_data.push(b);
   });
 
+  console.log(b_data);
+
   let svg = d3.select("#bar")
               .append("svg")
               .attr("viewBox", [0, 0, b_width, b_height]);
@@ -315,7 +317,13 @@ function create_slide3(data) {
 
   svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y).ticks(10, "%"));
+            .call(d3.axisLeft(y).ticks(10, "%"))
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
+            .attr("text-anchor", "end")
+            .text("Count");
 
   let f_data = b_data.filter(function(d) {
       let sq = d3.select("#cities").property("value");

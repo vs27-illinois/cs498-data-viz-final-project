@@ -22,9 +22,12 @@ div.slides {
     padding-top: 15px;
 }
 
-div#slide-2,
-div#slide-3 {
+div#slide-2 {
     margin: 0px 150px;
+}
+
+div#slide-3 {
+    margin: 0px 300px;
 }
 
 div.tooltip {

@@ -304,9 +304,9 @@ function create_slide3(data) {
         .attr("height", d => b_height - b_margin.bottom - y(d['count']));
 
   let text1 = add_annotation(svg, 'M 107 40L 107 370', [80,30],
-                   'White cops');
+                   'White cops', 8);
   let text2 = add_annotation(svg, 'M 183 70L 183 370', [140,60],
-                     'Non-White cops');
+                     'Non-White cops', 8);
 
   d3.select("#cities").on("change", () => {
        let sq = d3.select("#cities").property("value");
@@ -325,7 +325,7 @@ function create_slide3(data) {
    });
 }
 
-function add_annotation(svg, l_coord, t_coord, note) {
+function add_annotation(svg, l_coord, t_coord, note, font_size) {
     let path = svg.append('path')
                   .attr('d', l_coord)
                   .style('fill', 'none')
@@ -346,9 +346,9 @@ function add_annotation(svg, l_coord, t_coord, note) {
         text = svg.append('text')
                 .attr('x', t_coord[0])
                 .attr('y', t_coord[1])
-                .attr('font-size', 10)
-                .text(note)
-                .style("opacity", 0)
+                .attr('font-size', font_size || 10)
+                .text(note);
+        text.style("opacity", 0)
                 .transition()
                 .duration(1000)
                 .delay(1100)

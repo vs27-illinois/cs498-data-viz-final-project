@@ -9,13 +9,15 @@ let sb_width = 1000;
 let sb_height = 2000;
 let margin = {top: 30, right: 30, bottom: 30, left: 150};
 
-let div = d3.select("body")
-            .append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
 d3.csv(base_url + "police-locals.csv")
   .then(function(data) {
+    let f = d3.format(",");
+
+    let div = d3.select("body")
+                .append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+
     d3.json(base_url + "us-states.json")
       .then(function(json) {
         let projection = d3.geoAlbersUsa()
@@ -52,8 +54,6 @@ d3.csv(base_url + "police-locals.csv")
                     }
                 });
             });
-
-            let f = d3.format(",");
 
             svg.selectAll("circle")
                 .data(data)
@@ -146,14 +146,20 @@ d3.csv(base_url + "police-locals.csv")
           .attr("y", function(d) { return y(d.data['city']); })
           .attr("height", y.bandwidth())
           .attr("width", function(d) { return x(d[1]) - x(d[0]); });
-//          .on("mouseover", function() { tooltip.style("display", null); })
-//          .on("mouseout", function() { tooltip.style("display", "none"); })
-//          .on("mousemove", function(d) {
-//            var xPosition = d3.mouse(this)[0] - 5;
-//            var yPosition = d3.mouse(this)[1] - 5;
-//            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-//            tooltip.select("text").text(d[1]-d[0]);
-//          });
+          .on("mouseover", function(d) {
+              let text = 'City: ' + d['city'] + '<br/># of Officers: ' + f(d['total']);
+              div.transition()
+                 .duration(200)
+                 .style("opacity", .9);
+              div.html(text)
+                 .style("left", (d3.event.pageX) + "px")
+                 .style("top", (d3.event.pageY - 28) + "px");
+          })
+          .on("mouseout", function(d) {
+              div.transition()
+                 .duration(500)
+                 .style("opacity", 0);
+          });
 
       svg.append("g")
             .attr("class", "axis")

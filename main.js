@@ -156,13 +156,9 @@ function create_slide2(data) {
       .data(d => d)
       .enter()
       .append("rect")
-      .transition()
-      .duration(1000)
-      .delay((d, i) => i * 15)
       .attr("x", d => x(d[0]))
       .attr("y", d => y(d.data['city']))
       .attr("height", y.bandwidth())
-      .attr("width", d => x(d[1]) - x(d[0]))
       .on("mouseover", d => {
           let text = 'City: ' + d.data['city'] + '<br/># of Locals: ' + f(d.data['Locals']) +
                      '<br/># of Non-Locals: ' + f(d.data['Non-Locals']);
@@ -178,6 +174,12 @@ function create_slide2(data) {
              .duration(500)
              .style("opacity", 0);
       });
+
+  svg.selectAll('rect')
+      .transition()
+      .duration(1000)
+      .delay((d, i) => i * 15)
+      .attr("width", d => x(d[1]) - x(d[0]));
 
   svg.append("g")
         .attr("class", "axis")
@@ -332,17 +334,18 @@ function create_slide3(data) {
       return d['city'] === sq;
     });
 
-  svg.selectAll("bar")
+  svg.selectAll("rect")
         .data(f_data)
         .enter().append("rect")
-        .attr("class", "bar")
-        .transition().duration(1000)
-        .delay((d, i) => i * 15)
         .attr("x", d => x(d['race']))
         .attr("y", d => y(d['count']))
-        .attr("height", d => b_height - y(d['count']))
         .attr("width", 30)
         .attr("fill", "#10a778");
+
+  svg.selectAll("rect")
+        .transition().duration(1000)
+        .delay((d, i) => i * 15)
+        .attr("height", d => b_height - y(d['count']));
 
   d3.select("#cities").on("change", () => {
        let sq = d3.select("#cities").property("value");

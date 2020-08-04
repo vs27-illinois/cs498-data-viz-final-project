@@ -323,7 +323,7 @@ function create_slide3(data) {
       return d['city'] === sq;
     });
 
-  svg.selectAll(".bar")
+  svg.selectAll("bar")
         .data(f_data)
         .enter().append("rect")
         .attr("class", "bar")
@@ -340,7 +340,7 @@ function create_slide3(data) {
 function applyFilter(b_data, svg, value) {
   let data = b_data.filter(d => d['city'] === value)
 
-  svg.selectAll(".bar")
+  svg.selectAll("bar")
     .data(data)
     .transition().duration(1000)
     .attr("x", d => x(d['race']))

@@ -307,7 +307,7 @@ function create_slide3(data) {
               .padding(0.1);
 
   let y = d3.scaleLinear()
-              .domain([0, d3.max(b_data, d => d['count'])]).nice()
+              .domain([0, 100]).nice()
               .range([b_height - b_margin.bottom, b_margin.top])
 
   svg.append("g")

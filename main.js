@@ -310,13 +310,11 @@ function create_slide3(data) {
   svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + (b_height - margin.bottom) + ")")
-            .style("font-size", "12")
             .call(d3.axisBottom(x));
 
   svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(" + margin.left + ",0)")
-            .style("font-size", "12")
             .call(d3.axisLeft(y).ticks(10, '%'))
             .append("text")
             .attr("transform", "rotate(-90)")

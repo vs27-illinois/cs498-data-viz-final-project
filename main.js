@@ -188,12 +188,12 @@ function create_slide2(data) {
       .attr("width", d => x(d[1]) - x(d[0]));
 
   add_annotation(svg, 'M 390 138L 510 210', [520,215],
-                 'More than 80% of the Cops in Chicago and Philly PD are living in the city');
+                 'More than 80% of the cops in Chicago and Philly PD are living in the city');
   add_annotation(svg, 'M 250 245L 510 210', [], '');
   add_annotation(svg, 'M 175 1165L 300 1165', [310,1170],
-                   '93% of the Cops in Laredo PD are living in the city which is the highest among all the cities in the list');
+                   '93% of the cops in Laredo PD are living in the city which is the highest among all the cities in the list');
   add_annotation(svg, 'M 165 1610L 310 1650', [320,1655],
-                   'Most of the Cops in Richmond and Minneapolis PD are living out of the city');
+                   'Most of the cops in Richmond and Minneapolis PD are living out of the city');
   add_annotation(svg, 'M 165 1690L 310 1650', [], '');
 
   let legend = svg.selectAll(".legend")

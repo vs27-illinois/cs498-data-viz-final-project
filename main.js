@@ -94,34 +94,12 @@ function create_map(data) {
             svg.selectAll("circle")
                 .style("opacity", 0)
                 .transition()
-                .duration(1000)
+                .duration(500)
                 .delay((d, i) => i * 10)
                 .style("opacity", 0.85);
 
-            let path = svg.append('path')
-                .attr('d', 'M 910 170L 820 75')
-                .style('fill', 'none')
-                .style('stroke', 'black')
-                .style('stroke-width', 1);
-
-            var totalLength = path.node().getTotalLength();
-            path.attr("stroke-dasharray", totalLength + " " + totalLength)
-                .attr("stroke-dashoffset", totalLength)
-                .transition()
-                .duration(500)
-                .delay(15)
-                .ease(d3.easeLinear)
-                .attr("stroke-dashoffset", 0);
-
-            svg.append('text')
-                .attr('x', 650)
-                .attr('y', 70)
-                .text('New York City has the largest police force in the country')
-                .style("opacity", 0)
-                .transition()
-                .duration(1000)
-                .delay(20)
-                .style("opacity", 1);
+            add_annotation(svg, 'M 910 170L 820 75', [650, 70],
+                'New York City has the largest police force in the country', 15, 20);
           }).catch(err => console.log(err));
       }).catch(err => console.log(err));
 }
@@ -209,50 +187,14 @@ function create_slide2(data) {
       .delay((d, i) => i * 15)
       .attr("width", d => x(d[1]) - x(d[0]));
 
-  svg.append('path')
-     .attr('d', 'M 390 68L 510 140')
-     .style('fill', 'none')
-     .style('stroke', 'black')
-     .style('stroke-width', 1);
-
-  svg.append('path')
-     .attr('d', 'M 250 170L 510 140')
-     .style('fill', 'none')
-     .style('stroke', 'black')
-     .style('stroke-width', 1);
-
-  svg.append('text')
-     .attr('x', 520)
-     .attr('y', 145)
-     .text('More than 80% of the Officers in Chicago and Philly PD are living in the city');
-
-  svg.append('path')
-     .attr('d', 'M 175 1075L 300 1075')
-     .style('fill', 'none')
-     .style('stroke', 'black')
-     .style('stroke-width', 1);
-
-  svg.append('text')
-     .attr('x', 310)
-     .attr('y', 1080)
-     .text('93% of the Officers in Laredo PD are living in the city which is the highest among all the cities in the list');
-
-  svg.append('path')
-     .attr('d', 'M 165 1510L 310 1550')
-     .style('fill', 'none')
-     .style('stroke', 'black')
-     .style('stroke-width', 1);
-
-  svg.append('path')
-     .attr('d', 'M 165 1590L 310 1550')
-     .style('fill', 'none')
-     .style('stroke', 'black')
-     .style('stroke-width', 1);
-
-  svg.append('text')
-     .attr('x', 320)
-     .attr('y', 1555)
-     .text('Most of the Officers in Richmond and Minneapolis PD are living out of the city');
+  add_annotation(svg, 'M 390 68L 510 140', [520,145],
+                 'More than 80% of the Officers in Chicago and Philly PD are living in the city', 15, 20);
+  add_annotation(svg, 'M 390 68L 510 140', [], '', 15, 0);
+  add_annotation(svg, 'M 175 1075L 300 1075', [310,1080],
+                   '93% of the Officers in Laredo PD are living in the city which is the highest among all the cities in the list', 15, 20);
+  add_annotation(svg, 'M 165 1510L 310 1550', [320,1555],
+                   'Most of the Officers in Richmond and Minneapolis PD are living out of the city', 15, 20);
+  add_annotation(svg, 'M 165 1590L 310 1550', [], '', 15, 0);
 
   let legend = svg.selectAll(".legend")
     .data(colors)
@@ -373,4 +315,33 @@ function create_slide3(data) {
          .attr("y", d => y(d['count']))
          .attr("height", d => b_height - y(d['count']));
    });
+}
+
+function add_annotation(svg, l_coord, t_coord, note, line_delay, text_delay) {
+    let path = svg.append('path')
+                  .attr('d', l_coord)
+                  .style('fill', 'none')
+                  .style('stroke', 'black')
+                  .style('stroke-width', 1);
+
+    var totalLength = path.node().getTotalLength();
+    path.attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition()
+        .duration(500)
+        .delay(line_delay)
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", 0);
+
+    if (t_coord.length > 0) {
+        svg.append('text')
+            .attr('x', t_coord[0])
+            .attr('y', t_coord[1])
+            .text(note)
+            .style("opacity", 0)
+            .transition()
+            .duration(500)
+            .delay(text_delay)
+            .style("opacity", 1);
+    }
 }

@@ -74,11 +74,6 @@ function create_map(data) {
                 .attr("cy", d => projection([d['long'], d['lat']])[1])
                 .attr("r", d => d['police_force_size'] / 500)
                 .style("fill", "#d25c4d")
-                .style("opacity", 0)
-                .transition()
-                .duration(1000)
-                .delay((d, i) => i * 10)
-                .style("opacity", 0.85)
                 .style("stroke", "#ff0000")
                 .style("stroke-width", "1")
                 .on("mouseover", d => {
@@ -95,6 +90,13 @@ function create_map(data) {
                        .duration(500)
                        .style("opacity", 0);
                 });
+
+            svg.selectAll("circle")
+                .style("opacity", 0)
+                .transition()
+                .duration(1000)
+                .delay((d, i) => i * 10)
+                .style("opacity", 0.85);
 
             svg.append('path')
                 .attr('d', 'M 910 170L 820 75')

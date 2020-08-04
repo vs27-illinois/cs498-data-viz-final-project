@@ -40,7 +40,7 @@ d3.csv(base_url + "police-locals.csv")
             .enter()
             .append("path")
             .attr("d", path)
-            .style("stroke", "#ccc")
+            .style("stroke", "#888")
             .style("stroke-width", "1")
             .style("fill", "#e5e5e5");
 

@@ -26,11 +26,11 @@ div.tooltip {
   position: absolute;
   min-width: 180px;
   min-height: 30px;
-  padding: 2px;
+  padding: 5px;
   font: 13px sans-serif;
   background: white;
   border: 0px;
   border-radius: 8px;
   pointer-events: none;
-  background: #bcbcbc;
+  background: #ccc;
 }

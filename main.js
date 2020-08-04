@@ -299,8 +299,11 @@ function create_slide3(data) {
               .append("svg")
               .attr("viewBox", [0, 0, b_width, b_height]);
 
+  let g = svg.append("g")
+              .attr("transform", "translate(" + b_margin.left + "," + b_margin.top + ")")
+
   let x = d3.scaleBand()
-              .domain(b_data.map(function(d) { return d['race']; }))
+              .domain(b_data.map(d => d['race']))
               .range([b_margin.left, b_width - b_margin.right])
               .padding(0.1);
 
@@ -308,28 +311,28 @@ function create_slide3(data) {
               .domain([0, d3.max(b_data, d => d['count'])]).nice()
               .range([b_height - b_margin.bottom, b_margin.top])
 
-  svg.append("g")
+  g.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + (b_height - b_margin.bottom) + ")")
             .call(d3.axisBottom(x));
 
-  svg.append("g")
+  g.append("g")
             .attr("class", "axis")
-            .attr("transform", "translate(" + b_margin.left + ",0)")
-            .call(d3.axisLeft(y).ticks(10, '%'))
+            .call(d3.axisLeft(y).ticks(10, "%"))
             .append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 6)
             .attr("dy", "0.71em")
-            .attr("text-anchor", "end");
+            .attr("text-anchor", "end")
+            .text("Count");
 
   let f_data = b_data.filter(function(d) {
-      var sq = d3.select("#cities").property("value");
+      let sq = d3.select("#cities").property("value");
       console.log('sq: ' + sq);
       return d['city'] === sq;
     });
 
-  svg.selectAll(".bar")
+  g.selectAll(".bar")
         .data(f_data)
         .enter().append("rect")
         .attr("class", "bar")
@@ -344,7 +347,7 @@ function create_slide3(data) {
 }
 
 function applyFilter(b_data, svg, value) {
-  var data = b_data.filter(function(d) {return d['city'] === value;})
+  let data = b_data.filter(function(d) {return d['city'] === value;})
 
   svg.selectAll(".bar")
     .data(data)

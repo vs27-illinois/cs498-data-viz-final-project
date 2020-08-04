@@ -74,7 +74,6 @@ function create_map(data) {
                 .attr("cy", d => projection([d['long'], d['lat']])[1])
                 .attr("r", d => d['police_force_size'] / 500)
                 .style("fill", "#d25c4d")
-                .style("opacity", 0.85)
                 .style("stroke", "#ff0000")
                 .style("stroke-width", "1")
                 .on("mouseover", d => {
@@ -92,16 +91,37 @@ function create_map(data) {
                        .style("opacity", 0);
                 });
 
-            svg.append('path')
+            svg.selectAll("circle")
+                .style("opacity", 0)
+                .transition()
+                .duration(1000)
+                .delay((d, i) => i * 10)
+                .style("opacity", 0.85);
+
+            let path = svg.append('path')
                 .attr('d', 'M 910 170L 820 75')
                 .style('fill', 'none')
                 .style('stroke', 'black')
                 .style('stroke-width', 1);
 
+            var totalLength = path.node().getTotalLength();
+            path.attr("stroke-dasharray", totalLength + " " + totalLength)
+                .attr("stroke-dashoffset", totalLength)
+                .transition()
+                .duration(1000)
+                .delay(15)
+                .ease(d3.easeLinear)
+                .attr("stroke-dashoffset", 0);
+
             svg.append('text')
                 .attr('x', 650)
                 .attr('y', 70)
-                .text('New York City has the largest police force in the country');
+                .text('New York City has the largest police force in the country')
+                .style("opacity", 0)
+                .transition()
+                .duration(1000)
+                .delay(18)
+                .style("opacity", 1);
           }).catch(err => console.log(err));
       }).catch(err => console.log(err));
 }

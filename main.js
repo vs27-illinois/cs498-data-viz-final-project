@@ -290,23 +290,56 @@ function create_slide3(data) {
     b_data[d['city']] = arr;
   });
 
-  console.log(b_data)
-
-  let svg = d3.select("#bar")
-                .append("svg")
-                .attr("viewBox", [0, 0, b_width, b_height]);
-
-//  x = d3.scaleBand()
-//      .domain(d3.range(b_data.length))
-//      .range([margin.left, b_width - margin.right])
-//      .padding(1.0);
-//
-//  y = d3.scaleLinear()
-//      .domain([0, d3.max(data, d => d.value)]).nice()
-//      .range([height - margin.bottom, margin.top])
-
+  let city = select.attr('value');
+  console.log(city);
+  update_slide3(b_data[city]);
 }
 
-function onCityChanged(e) {
-    console.log(e);
+function onCityChanged(select) {
+    console.log(select.value);
+    update_slide3(select.value);
+}
+
+function update_slide3(data) {
+    let svg = d3.select("#bar")
+                    .append("svg")
+                    .attr("viewBox", [0, 0, b_width, b_height]);
+
+      x = d3.scaleBand()
+          .domain(d3.range(data.length))
+          .range([margin.left, b_width - margin.right])
+          .padding(1.0);
+
+      y = d3.scaleLinear()
+          .domain([0, d3.max(data, d => d.value)]).nice()
+          .range([height - margin.bottom, margin.top])
+
+        svg.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(0," + (b_height - margin.bottom) + ")")
+                .style("font-size", "12")
+                .call(d3.axisBottom(x).tickFormat(i => data[i].name).tickSizeOuter(0));
+
+        svg.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(" + margin.left + ",0)")
+                .style("font-size", "12")
+                .call(d3.axisLeft(y).ticks(null, '%'))
+                .call(g => g.selectAll(".domain").remove())
+                .call(g => g.append("text")
+                        .attr("x", -margin.left)
+                        .attr("y", 10)
+                        .attr("fill", "currentColor")
+                        .attr("text-anchor", "start")
+                        .text(data.y));
+
+        svg.append("g")
+              .attr("fill", color)
+              .selectAll("rect")
+              .data(data)
+              .join("rect")
+              .attr("x", (d, i) => x(i))
+              .attr("y", d => y(d.value))
+              .attr("height", d => y(0) - y(d.value))
+              .attr("width", x.bandwidth());
 }

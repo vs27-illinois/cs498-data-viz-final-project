@@ -101,6 +101,7 @@ d3.csv(base_url + "police-locals.csv")
       }).catch(err => console.log(err));
 
       let keys = ["Locals", "Non-Locals"];
+      let colors = ["#10a778", "#d25c4d"];
 
       let b_data = [];
 
@@ -130,7 +131,7 @@ d3.csv(base_url + "police-locals.csv")
 
       let z = d3.scaleOrdinal()
                 .domain(keys)
-                .range(["#10a778", "#d25c4d"]);
+                .range(colors);
 
       svg.append("g")
           .selectAll("g")
@@ -194,7 +195,7 @@ d3.csv(base_url + "police-locals.csv")
          .text('More than 80% of the Officers in Chicago and Philly PD are living in the city');
 
       svg.append('path')
-         .attr('d', 'M 180 1075L 300 1075')
+         .attr('d', 'M 175 1075L 300 1075')
          .style('fill', 'none')
          .style('stroke', 'black')
          .style('stroke-width', 1);
@@ -220,4 +221,28 @@ d3.csv(base_url + "police-locals.csv")
          .attr('x', 320)
          .attr('y', 1555)
          .text('Most of the Officers in Richmond and Minneapolis PD are living out of the city');
+
+      let legend = svg.selectAll(".legend")
+        .data(colors)
+        .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(30," + i * 19 + ")"; });
+
+      legend.append("rect")
+        .attr("x", sb_width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", function(d, i) {return colors.slice().reverse()[i];});
+
+      legend.append("text")
+        .attr("x", sb_width + 5)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "start")
+        .text(function(d, i) {
+          switch (i) {
+            case 0: return "Locals";
+            case 1: return "Non-Locals";
+          }
+        });
   }).catch(err => console.log(err));

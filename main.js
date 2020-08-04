@@ -187,10 +187,10 @@ function create_slide2(data) {
       .delay((d, i) => i * 10)
       .attr("width", d => x(d[1]) - x(d[0]));
 
-  add_annotation(svg, 'M 390 168L 510 240', [520,145],
+  add_annotation(svg, 'M 390 138L 510 240', [520,145],
                  'More than 80% of the Officers in Chicago and Philly PD are living in the city');
-  add_annotation(svg, 'M 250 270L 510 240', [], '');
-  add_annotation(svg, 'M 175 1175L 300 1175', [310,1080],
+  add_annotation(svg, 'M 250 245L 510 240', [], '');
+  add_annotation(svg, 'M 175 1165L 300 1165', [310,1080],
                    '93% of the Officers in Laredo PD are living in the city which is the highest among all the cities in the list');
   add_annotation(svg, 'M 165 1610L 310 1650', [320,1555],
                    'Most of the Officers in Richmond and Minneapolis PD are living out of the city');

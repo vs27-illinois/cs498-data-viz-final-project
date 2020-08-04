@@ -40,7 +40,7 @@ d3.csv(base_url + "police-locals.csv")
             .enter()
             .append("path")
             .attr("d", path)
-            .style("stroke", "#b5b5b5")
+            .style("stroke", "#ccc")
             .style("stroke-width", "1")
             .style("fill", "#e5e5e5");
 
@@ -68,9 +68,9 @@ d3.csv(base_url + "police-locals.csv")
                 .attr("r", function(d) {
                     return d['police_force_size'] / 500;
                 })
-                .style("fill", "rgb(217,91,67)")
+                .style("fill", "#d25c4d")
                 .style("opacity", 0.85)
-                .style("stroke", "red")
+                .style("stroke", "#ff0000")
                 .style("stroke-width", "1")
                 .on("mouseover", function(d) {
                     let text = 'City: ' + d['city'] + '<br/># of Officers: ' + f(d['police_force_size']);

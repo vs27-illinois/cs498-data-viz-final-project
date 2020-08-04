@@ -185,13 +185,13 @@ function create_slide2(data) {
         .call(g => g.selectAll(".domain").remove());
 
   svg.append('path')
-     .attr('d', 'M 410 65L 510 140')
+     .attr('d', 'M 390 68L 510 140')
      .style('fill', 'none')
      .style('stroke', 'black')
      .style('stroke-width', 1);
 
   svg.append('path')
-     .attr('d', 'M 270 170L 510 140')
+     .attr('d', 'M 250 170L 510 140')
      .style('fill', 'none')
      .style('stroke', 'black')
      .style('stroke-width', 1);

@@ -330,7 +330,7 @@ function create_slide3(data) {
           .attr("x", d => x(d['race']))
           .attr("y", d => y(d['count']))
           .attr("height", d => b_height - y(d['count']))
-          .attr("width", 25)
+          .attr("width", 30)
           .attr("fill", "#10a778");
 
   d3.select("#cities").on("change", () => {

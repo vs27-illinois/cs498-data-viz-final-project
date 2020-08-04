@@ -346,7 +346,7 @@ function add_annotation(svg, l_coord, t_coord, note, font_size) {
         text = svg.append('text')
                 .attr('x', t_coord[0])
                 .attr('y', t_coord[1])
-                .attr('font-size', font_size || 10)
+                .attr('font-size', font_size || 12)
                 .text(note);
         text.style("opacity", 0)
                 .transition()

@@ -299,9 +299,6 @@ function create_slide3(data) {
               .append("svg")
               .attr("viewBox", [0, 0, b_width, b_height]);
 
-  let g = svg.append("g")
-              .attr("transform", "translate(" + b_margin.left + "," + b_margin.top + ")")
-
   let x = d3.scaleBand()
               .domain(b_data.map(d => d['race']))
               .range([b_margin.left, b_width - b_margin.right])
@@ -311,20 +308,14 @@ function create_slide3(data) {
               .domain([0, d3.max(b_data, d => d['count'])]).nice()
               .range([b_height - b_margin.bottom, b_margin.top])
 
-  g.append("g")
+  svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + (b_height - b_margin.bottom) + ")")
             .call(d3.axisBottom(x));
 
-  g.append("g")
+  svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y).ticks(10, "%"))
-            .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", "0.71em")
-            .attr("text-anchor", "end")
-            .text("Count");
+            .call(d3.axisLeft(y).ticks(10, "%"));
 
   let f_data = b_data.filter(function(d) {
       let sq = d3.select("#cities").property("value");
@@ -332,7 +323,7 @@ function create_slide3(data) {
       return d['city'] === sq;
     });
 
-  g.selectAll(".bar")
+  svg.selectAll(".bar")
         .data(f_data)
         .enter().append("rect")
         .attr("class", "bar")

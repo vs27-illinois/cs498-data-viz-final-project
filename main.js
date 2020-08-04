@@ -99,7 +99,7 @@ function create_map(data) {
                 .style("opacity", 0.85);
 
             add_annotation(svg, 'M 910 170L 820 75', [650, 70],
-                'New York City has the largest police force in the country', 15, 20);
+                           'New York City has the largest police force in the country');
           }).catch(err => console.log(err));
       }).catch(err => console.log(err));
 }
@@ -188,13 +188,13 @@ function create_slide2(data) {
       .attr("width", d => x(d[1]) - x(d[0]));
 
   add_annotation(svg, 'M 390 68L 510 140', [520,145],
-                 'More than 80% of the Officers in Chicago and Philly PD are living in the city', 15, 20);
-  add_annotation(svg, 'M 250 170L 510 140', [], '', 15, 0);
+                 'More than 80% of the Officers in Chicago and Philly PD are living in the city');
+  add_annotation(svg, 'M 250 170L 510 140', [], '');
   add_annotation(svg, 'M 175 1075L 300 1075', [310,1080],
-                   '93% of the Officers in Laredo PD are living in the city which is the highest among all the cities in the list', 15, 20);
+                   '93% of the Officers in Laredo PD are living in the city which is the highest among all the cities in the list');
   add_annotation(svg, 'M 165 1510L 310 1550', [320,1555],
-                   'Most of the Officers in Richmond and Minneapolis PD are living out of the city', 15, 20);
-  add_annotation(svg, 'M 165 1590L 310 1550', [], '', 15, 0);
+                   'Most of the Officers in Richmond and Minneapolis PD are living out of the city');
+  add_annotation(svg, 'M 165 1590L 310 1550', [], '');
 
   let legend = svg.selectAll(".legend")
     .data(colors)
@@ -317,7 +317,7 @@ function create_slide3(data) {
    });
 }
 
-function add_annotation(svg, l_coord, t_coord, note, line_delay, text_delay) {
+function add_annotation(svg, l_coord, t_coord, note) {
     let path = svg.append('path')
                   .attr('d', l_coord)
                   .style('fill', 'none')
@@ -329,7 +329,7 @@ function add_annotation(svg, l_coord, t_coord, note, line_delay, text_delay) {
         .attr("stroke-dashoffset", totalLength)
         .transition()
         .duration(500)
-        .delay(line_delay)
+        .delay(1000)
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0);
 
@@ -340,8 +340,8 @@ function add_annotation(svg, l_coord, t_coord, note, line_delay, text_delay) {
             .text(note)
             .style("opacity", 0)
             .transition()
-            .duration(500)
-            .delay(text_delay)
+            .duration(1000)
+            .delay(1100)
             .style("opacity", 1);
     }
 }

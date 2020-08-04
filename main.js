@@ -313,7 +313,7 @@ function create_slide3(data) {
          .delay((d, i) => i * 10)
          .attr("x", d => x(d['race']))
          .attr("y", d => y(d['count']))
-         .attr("height", d => b_height - y(d['count']));
+         .attr("height", d => b_height - b_margin.bottom - y(d['count']));
    });
 }
 

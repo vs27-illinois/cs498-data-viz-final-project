@@ -145,7 +145,7 @@ d3.csv(base_url + "police-locals.csv")
           .attr("x", function(d) { return x(d[0]); })
           .attr("y", function(d) { return y(d.data['city']); })
           .attr("height", y.bandwidth())
-          .attr("width", function(d) { return x(d[1]) - x(d[0]); });
+          .attr("width", function(d) { return x(d[1]) - x(d[0]); })
           .on("mouseover", function(d) {
               let text = 'City: ' + d['city'] + '<br/># of Officers: ' + f(d['total']);
               div.transition()

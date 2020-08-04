@@ -99,12 +99,18 @@ function create_map(data) {
                 .style("opacity", 0.85);
 
             svg.append('path')
+                .transition()
+                .duration(1000)
+                .delay((d, i) => i * 20)
                 .attr('d', 'M 910 170L 820 75')
                 .style('fill', 'none')
                 .style('stroke', 'black')
                 .style('stroke-width', 1);
 
             svg.append('text')
+                .transition()
+                .duration(1000)
+                .delay((d, i) => i * 25)
                 .attr('x', 650)
                 .attr('y', 70)
                 .text('New York City has the largest police force in the country');
@@ -147,6 +153,20 @@ function create_slide2(data) {
             .range(colors);
 
   svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(0," + margin.top + ")")
+        .style("font-size", "12")
+        .call(d3.axisTop(x).ticks(sb_width / 100, "s"))
+        .call(g => g.selectAll(".domain").remove());
+
+  svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + margin.left + ",0)")
+        .style("font-size", "12")
+        .call(d3.axisLeft(y).tickSizeOuter(0))
+        .call(g => g.selectAll(".domain").remove());
+
+  svg.append("g")
       .selectAll("g")
       .data(d3.stack().keys(keys)(b_data))
       .enter()
@@ -180,20 +200,6 @@ function create_slide2(data) {
       .duration(1000)
       .delay((d, i) => i * 15)
       .attr("width", d => x(d[1]) - x(d[0]));
-
-  svg.append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(0," + margin.top + ")")
-        .style("font-size", "12")
-        .call(d3.axisTop(x).ticks(sb_width / 100, "s"))
-        .call(g => g.selectAll(".domain").remove());
-
-  svg.append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(" + margin.left + ",0)")
-        .style("font-size", "12")
-        .call(d3.axisLeft(y).tickSizeOuter(0))
-        .call(g => g.selectAll(".domain").remove());
 
   svg.append('path')
      .attr('d', 'M 390 68L 510 140')
@@ -337,14 +343,14 @@ function create_slide3(data) {
   svg.selectAll("rect")
         .data(f_data)
         .enter().append("rect")
-        .attr("x", d => x(d['race']))
-        .attr("y", d => y(d['count']))
         .attr("width", 30)
         .attr("fill", "#10a778");
 
   svg.selectAll("rect")
         .transition().duration(1000)
         .delay((d, i) => i * 15)
+        .attr("x", d => x(d['race']))
+        .attr("y", d => y(d['count']))
         .attr("height", d => b_height - y(d['count']));
 
   d3.select("#cities").on("change", () => {

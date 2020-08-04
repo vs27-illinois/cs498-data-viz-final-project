@@ -272,7 +272,8 @@ function create_slide3(data) {
   svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + (b_height - b_margin.bottom) + ")")
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x))
+            .attr('font-size', 8);
 
   svg.append("g")
             .attr("class", "axis")
@@ -282,7 +283,7 @@ function create_slide3(data) {
             .attr("y", 6)
             .attr("dy", "0.71em")
             .attr("text-anchor", "end")
-            .text("Count");
+            .attr('font-size', 8);
 
   let f_data = b_data.filter(d => {
       let sq = d3.select("#cities").property("value");
@@ -303,9 +304,9 @@ function create_slide3(data) {
         .delay((d, i) => i * 10)
         .attr("height", d => b_height - b_margin.bottom - y(d['count']));
 
-  add_annotation(svg, 'M 107 40L 107 370', [50,30],
+  add_annotation(svg, 'M 107 40L 107 370', [80,30],
                    'White cops');
-  add_annotation(svg, 'M 183 70L 107 370', [100,60],
+  add_annotation(svg, 'M 183 70L 183 370', [140,60],
                      'Non-white cops');
 
   d3.select("#cities").on("change", () => {

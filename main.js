@@ -330,14 +330,14 @@ function create_slide3(data) {
           .attr("x", d => x(d['race']))
           .attr("y", d => y(d['count']))
           .attr("height", d => b_height - y(d['count']))
-          .attr("width", x.bandwidth())
+          .attr("width", 25)
           .attr("fill", "#10a778");
 
   d3.select("#cities").on("change", () => {
        let sq = d3.select("#cities").property("value");
        let data = b_data.filter(d => d['city'] === sq)
 
-       svg.selectAll("bar")
+       svg.selectAll("rect")
          .data(data)
          .transition().duration(1000)
          .attr("x", d => x(d['race']))

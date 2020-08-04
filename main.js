@@ -299,7 +299,7 @@ function create_slide3(data) {
               .attr("viewBox", [0, 0, b_width, b_height]);
 
   let x = d3.scaleBand()
-              .domain(b_data.map(function(d) { return d['race']; })
+              .domain(b_data.map(function(d) { return d['race']; }))
               .range([margin.left, b_width - margin.right])
               .padding(1.0);
 

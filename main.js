@@ -95,7 +95,7 @@ function create_map(data) {
                 .style("opacity", 0)
                 .transition()
                 .duration(1000)
-                .delay((d, i) => i * 20)
+                .delay((d, i) => i * 15)
                 .style("opacity", 0.85);
 
             svg.append('path')
@@ -156,6 +156,9 @@ function create_slide2(data) {
       .data(d => d)
       .enter()
       .append("rect")
+      .transition()
+      .duration(1000)
+      .delay((d, i) => i * 15)
       .attr("x", d => x(d[0]))
       .attr("y", d => y(d.data['city']))
       .attr("height", y.bandwidth())
@@ -333,11 +336,13 @@ function create_slide3(data) {
         .data(f_data)
         .enter().append("rect")
         .attr("class", "bar")
-          .attr("x", d => x(d['race']))
-          .attr("y", d => y(d['count']))
-          .attr("height", d => b_height - y(d['count']))
-          .attr("width", 30)
-          .attr("fill", "#10a778");
+        .transition().duration(1000)
+        .delay((d, i) => i * 15)
+        .attr("x", d => x(d['race']))
+        .attr("y", d => y(d['count']))
+        .attr("height", d => b_height - y(d['count']))
+        .attr("width", 30)
+        .attr("fill", "#10a778");
 
   d3.select("#cities").on("change", () => {
        let sq = d3.select("#cities").property("value");
@@ -346,6 +351,7 @@ function create_slide3(data) {
        svg.selectAll("rect")
          .data(data)
          .transition().duration(1000)
+         .delay((d, i) => i * 15)
          .attr("x", d => x(d['race']))
          .attr("y", d => y(d['count']))
          .attr("height", d => b_height - y(d['count']));

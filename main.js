@@ -330,20 +330,18 @@ function create_slide3(data) {
           .attr("x", d => x(d['race']))
           .attr("y", d => y(d['count']))
           .attr("height", d => b_height - y(d['count']))
-          .attr("width", x.bandwidth());
+          .attr("width", x.bandwidth())
+          .attr("fill", "#10a778");
 
-  d3.select("#cities").on("change", () => {
-     applyFilter(b_data, svg, this.value);
+  d3.select("#cities").on("change", (d) => {
+       let sq = d3.select(this).property("value");
+       let data = b_data.filter(d => d['city'] === sq)
+
+       svg.selectAll("bar")
+         .data(data)
+         .transition().duration(1000)
+         .attr("x", d => x(d['race']))
+         .attr("y", d => y(d['count']))
+         .attr("height", d => b_height - y(d['count']));
    });
-}
-
-function applyFilter(b_data, svg, value) {
-  let data = b_data.filter(d => d['city'] === value)
-
-  svg.selectAll("bar")
-    .data(data)
-    .transition().duration(1000)
-    .attr("x", d => x(d['race']))
-    .attr("y", d => y(d['count']))
-    .attr("height", d => b_height - y(d['count']));
 }

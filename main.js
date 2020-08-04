@@ -184,7 +184,7 @@ function create_slide2(data) {
   svg.selectAll('rect')
       .transition()
       .duration(1000)
-      .delay((d, i) => i * 15)
+      .delay((d, i) => i * 10)
       .attr("width", d => x(d[1]) - x(d[0]));
 
   add_annotation(svg, 'M 390 68L 510 140', [520,145],
@@ -299,7 +299,7 @@ function create_slide3(data) {
 
   svg.selectAll("rect")
         .transition().duration(1000)
-        .delay((d, i) => i * 15)
+        .delay((d, i) => i * 10)
         .attr("y", d => y(d['count']))
         .attr("height", d => b_height - y(d['count']));
 
@@ -310,7 +310,7 @@ function create_slide3(data) {
        svg.selectAll("rect")
          .data(data)
          .transition().duration(1000)
-         .delay((d, i) => i * 15)
+         .delay((d, i) => i * 10)
          .attr("x", d => x(d['race']))
          .attr("y", d => y(d['count']))
          .attr("height", d => b_height - y(d['count']));

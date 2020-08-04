@@ -294,7 +294,7 @@ function create_slide3(data) {
         .data(f_data)
         .enter().append("rect")
         .attr("x", d => x(d['race']))
-        .attr("width", 30)
+        .attr("width", x.bandwidth())
         .attr("fill", "#10a778");
 
   svg.selectAll("rect")

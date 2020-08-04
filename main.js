@@ -177,47 +177,47 @@ d3.csv(base_url + "police-locals.csv")
             .call(g => g.selectAll(".domain").remove());
 
       svg.append('path')
-         .attr('d', 'M 910 170L 820 75')
+         .attr('d', 'M 410 65L 510 140')
          .style('fill', 'none')
          .style('stroke', 'black')
          .style('stroke-width', 1);
 
       svg.append('path')
-         .attr('d', 'M 910 150L 820 95')
+         .attr('d', 'M 270 170L 510 140')
          .style('fill', 'none')
          .style('stroke', 'black')
          .style('stroke-width', 1);
 
       svg.append('text')
-         .attr('x', 650)
-         .attr('y', 70)
-         .text('Most of the Police officers in Chicago and Philly PD are living in the city');
+         .attr('x', 520)
+         .attr('y', 145)
+         .text('More than 80% of the Officers in Chicago and Philly PD are living in the city');
 
       svg.append('path')
-         .attr('d', 'M 810 140L 620 55')
+         .attr('d', 'M 180 1075L 300 1075')
          .style('fill', 'none')
          .style('stroke', 'black')
          .style('stroke-width', 1);
 
       svg.append('text')
-         .attr('x', 650)
-         .attr('y', 70)
-         .text('93% of the Police officers in Laredo PD are living in the city which is the highest among all the cities in the list');
+         .attr('x', 310)
+         .attr('y', 1080)
+         .text('93% of the Officers in Laredo PD are living in the city which is the highest among all the cities in the list');
 
       svg.append('path')
-         .attr('d', 'M 910 170L 820 75')
+         .attr('d', 'M 165 1510L 310 1550')
          .style('fill', 'none')
          .style('stroke', 'black')
          .style('stroke-width', 1);
 
       svg.append('path')
-         .attr('d', 'M 910 150L 820 95')
+         .attr('d', 'M 165 1590L 310 1550')
          .style('fill', 'none')
          .style('stroke', 'black')
          .style('stroke-width', 1);
 
       svg.append('text')
-         .attr('x', 650)
-         .attr('y', 70)
-         .text('Most of the Police officers in Richmond and Minneapolis PD are living out of the city');
+         .attr('x', 320)
+         .attr('y', 1555)
+         .text('Most of the Officers in Richmond and Minneapolis PD are living out of the city');
   }).catch(err => console.log(err));

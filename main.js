@@ -12,7 +12,6 @@ let margin = {top: 30, right: 30, bottom: 30, left: 150};
 // Bar Chart Width, Height and Margin
 let b_width = 600;
 let b_height = 500;
-let margin = {top: 30, right: 30, bottom: 30, left: 150};
 
 let f = d3.format(",");
 

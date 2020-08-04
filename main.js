@@ -263,7 +263,7 @@ function create_slide3(data) {
   let x = d3.scaleBand()
               .domain(b_data.map(d => d['race']))
               .range([b_margin.left, b_width - b_margin.right])
-              .padding(1.0);
+              .padding(0.5);
 
   let y = d3.scaleLinear()
               .domain([0, d3.max(b_data, d => d['count'])]).nice()

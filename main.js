@@ -260,86 +260,97 @@ function create_slide2(data) {
 }
 
 function create_slide3(data) {
-  let b_data = {};
+  let b_data = [];
 
   let select = d3.select('#cities');
 
   data.forEach(function(d) {
     select.append('option').attr('value', d['city']).text(d['city']);
 
-    var arr = [], b = {};
+    var b = {};
+    b['city'] = ['city'];
     b['race'] = 'White';
     b['count'] = (b['white'] !== '**') ? b['white'] * 100 : 0;
-    arr.push(b);
+    b_data.push(b);
     b = {};
+    b['city'] = ['city'];
     b['race'] = 'Non-White';
     b['count'] = (b['non-white'] !== '**') ? b['non-white'] * 100 : 0;
-    arr.push(b);
+    b_data.push(b);
     b = {};
+    b['city'] = ['city'];
     b['race'] = 'Black';
     b['count'] = (b['black'] !== '**') ? b['black'] * 100 : 0;
-    arr.push(b);
+    b_data.push(b);
     b = {};
+    b['city'] = ['city'];
     b['race'] = 'Hispanic';
     b['count'] = (b['hispanic'] !== '**') ? b['hispanic'] * 100 : 0;
-    arr.push(b);
+    b_data.push(b);
     b = {};
+    b['city'] = ['city'];
     b['race'] = 'Asian';
     b['count'] = (b['asian'] !== '**') ? b['asian'] * 100 : 0;
-    arr.push(b);
-    b_data[d['city']] = arr;
+    b_data.push(b);
   });
 
-  let city = select.attr('value');
-  console.log(city);
-  update_slide3(b_data[city]);
+  let svg = d3.select("#bar")
+              .append("svg")
+              .attr("viewBox", [0, 0, b_width, b_height]);
+
+  let x = d3.scaleBand()
+              .domain(b_data.map(function(d) { return d['race']; })
+              .range([margin.left, b_width - margin.right])
+              .padding(1.0);
+
+  let y = d3.scaleLinear()
+              .domain([0, d3.max(data, d => d.value)]).nice()
+              .range([b_height - margin.bottom, margin.top])
+
+  svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + (b_height - margin.bottom) + ")")
+            .style("font-size", "12")
+            .call(d3.axisBottom(x));
+
+  svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" + margin.left + ",0)")
+            .style("font-size", "12")
+            .call(d3.axisLeft(y).ticks(10, '%'))
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
+            .attr("text-anchor", "end");
+
+  let f_data = b_data.filter(function(d) {
+      var sq = d3.select("#cities").property("value");
+      console.log('sq: ' + sq);
+      return d['city'] === sq;
+    });
+
+  svg.selectAll(".bar")
+        .data(f_data)
+        .enter().append("rect")
+        .attr("class", "bar")
+          .attr("x", d => x(d['race']))
+          .attr("y", d => y(d['count']))
+          .attr("height", d => b_height - y(d['count']))
+          .attr("width", x.bandwidth());
+
+  d3.select("#cities").on("change", function() {
+     applyFilter(b_data, svg, this.value);
+   });
 }
 
-function onCityChanged(select) {
-    console.log(select.value);
-    update_slide3(select.value);
-}
+function applyFilter(b_data, svg, value) {
+  var data = b_data.filter(function(d) {return d['city'] === value;})
 
-function update_slide3(data) {
-    let svg = d3.select("#bar")
-                    .append("svg")
-                    .attr("viewBox", [0, 0, b_width, b_height]);
-
-      x = d3.scaleBand()
-          .domain(d3.range(data.length))
-          .range([margin.left, b_width - margin.right])
-          .padding(1.0);
-
-      y = d3.scaleLinear()
-          .domain([0, d3.max(data, d => d.value)]).nice()
-          .range([b_height - margin.bottom, margin.top])
-
-        svg.append("g")
-                .attr("class", "axis")
-                .attr("transform", "translate(0," + (b_height - margin.bottom) + ")")
-                .style("font-size", "12")
-                .call(d3.axisBottom(x).tickFormat(i => data[i].name).tickSizeOuter(0));
-
-        svg.append("g")
-                .attr("class", "axis")
-                .attr("transform", "translate(" + margin.left + ",0)")
-                .style("font-size", "12")
-                .call(d3.axisLeft(y).ticks(null, '%'))
-                .call(g => g.selectAll(".domain").remove())
-                .call(g => g.append("text")
-                        .attr("x", -margin.left)
-                        .attr("y", 10)
-                        .attr("fill", "currentColor")
-                        .attr("text-anchor", "start")
-                        .text(data.y));
-
-        svg.append("g")
-              .attr("fill", "steelblue")
-              .selectAll("rect")
-              .data(data)
-              .join("rect")
-              .attr("x", (d, i) => x(i))
-              .attr("y", d => y(d.value))
-              .attr("height", d => y(0) - y(d.value))
-              .attr("width", x.bandwidth());
+  svg.selectAll(".bar")
+    .data(data)
+    .transition().duration(1000)
+    .attr("x", d => x(d['race']))
+    .attr("y", d => y(d['count']))
+    .attr("height", d => b_height - y(d['count']));
 }

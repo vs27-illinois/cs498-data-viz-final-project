@@ -226,16 +226,16 @@ d3.csv(base_url + "police-locals.csv")
         .data(colors)
         .enter().append("g")
         .attr("class", "legend")
-        .attr("transform", function(d, i) { return "translate(30," + i * 19 + ")"; });
+        .attr("transform", function(d, i) {return "translate(600," + 300 + (i * 30) + ")";});
 
       legend.append("rect")
-        .attr("x", sb_width - 18)
+        .attr("x", 150)
         .attr("width", 18)
         .attr("height", 18)
-        .style("fill", function(d, i) {return colors.slice().reverse()[i];});
+        .style("fill", function(d, i) {return colors.slice()[i];});
 
       legend.append("text")
-        .attr("x", sb_width + 5)
+        .attr("x", 175)
         .attr("y", 9)
         .attr("dy", ".35em")
         .style("text-anchor", "start")

@@ -334,7 +334,7 @@ function update_slide3(data) {
                         .text(data.y));
 
         svg.append("g")
-              .attr("fill", color)
+              .attr("fill", "steelblue")
               .selectAll("rect")
               .data(data)
               .join("rect")

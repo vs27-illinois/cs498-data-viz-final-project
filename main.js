@@ -294,13 +294,13 @@ function create_slide3(data) {
         .data(f_data)
         .enter().append("rect")
         .attr("x", d => x(d['race']))
+        .attr("y", d => y(d['count']))
         .attr("width", x.bandwidth())
         .attr("fill", "#10a778");
 
   svg.selectAll("rect")
         .transition().duration(1000)
         .delay((d, i) => i * 10)
-        .attr("y", d => y(d['count']))
         .attr("height", d => b_height - b_margin.bottom - y(d['count']));
 
   d3.select("#cities").on("change", () => {

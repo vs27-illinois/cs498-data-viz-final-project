@@ -188,12 +188,12 @@ function create_slide2(data) {
       .attr("width", d => x(d[1]) - x(d[0]));
 
   add_annotation(svg, 'M 390 138L 510 210', [520,215],
-                 'More than 80% of the Officers in Chicago and Philly PD are living in the city');
+                 'More than 80% of the Cops in Chicago and Philly PD are living in the city');
   add_annotation(svg, 'M 250 245L 510 210', [], '');
   add_annotation(svg, 'M 175 1165L 300 1165', [310,1170],
-                   '93% of the Officers in Laredo PD are living in the city which is the highest among all the cities in the list');
+                   '93% of the Cops in Laredo PD are living in the city which is the highest among all the cities in the list');
   add_annotation(svg, 'M 165 1610L 310 1650', [320,1655],
-                   'Most of the Officers in Richmond and Minneapolis PD are living out of the city');
+                   'Most of the Cops in Richmond and Minneapolis PD are living out of the city');
   add_annotation(svg, 'M 165 1690L 310 1650', [], '');
 
   let legend = svg.selectAll(".legend")
@@ -303,17 +303,21 @@ function create_slide3(data) {
         .delay((d, i) => i * 10)
         .attr("height", d => b_height - b_margin.bottom - y(d['count']));
 
+  let w = f_data[0], nw = f_data[1];
   let text1 = add_annotation(svg, 'M 107 40L 107 370', [80,30],
-                   'White cops', 8);
+              'Among the White cops in ' + w['city'] + ' PD, ' + (w['count'] * 100) + '% are living in the city', 9);
   let text2 = add_annotation(svg, 'M 183 70L 183 370', [140,60],
-                     'Non-White cops', 8);
+              'Among the Non-White cops in ' + nw['city'] + ' PD, ' + (nw['count'] * 100) + '% are living in the city', 9);
 
   d3.select("#cities").on("change", () => {
        let sq = d3.select("#cities").property("value");
        let data = b_data.filter(d => d['city'] === sq)
 
-       text1.text('White cop in ' + sq);
-       text2.text('Non-White cop in ' + sq);
+       w = data[0];
+       nw = data[1];
+
+       text1.text('Among the White cops in ' + w['city'] + ' PD, ' + (w['count'] * 100) + '% are living in the city');
+       text2.text('Among the Non-White cops in ' + nw['city'] + ' PD, ' + (nw['count'] * 100) + '% are living in the city');
 
        svg.selectAll("rect")
          .data(data)

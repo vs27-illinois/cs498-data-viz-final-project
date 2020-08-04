@@ -303,6 +303,11 @@ function create_slide3(data) {
         .delay((d, i) => i * 10)
         .attr("height", d => b_height - b_margin.bottom - y(d['count']));
 
+  add_annotation(svg, 'M 107 40L 107 370', [50,30],
+                   'White cops');
+  add_annotation(svg, 'M 183 70L 107 370', [100,60],
+                     'Non-white cops');
+
   d3.select("#cities").on("change", () => {
        let sq = d3.select("#cities").property("value");
        let data = b_data.filter(d => d['city'] === sq)

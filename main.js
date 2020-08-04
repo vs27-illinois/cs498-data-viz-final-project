@@ -256,4 +256,43 @@ function create_slide2(data) {
 }
 
 function create_slide3(data) {
+  let b_data = {};
+
+  let select = d3.select('#cities');
+
+  data.forEach(function(d) {
+    select.append('option').attr('value', d['city']).text(d['city']);
+
+    var arr = [], b = {};
+    b['race'] = 'White';
+    b['count'] = (b['white'] !== '**') ? b['white'] * 100 : 0;
+    arr.push(b);
+    b = {};
+    b['race'] = 'Non-White';
+    b['count'] = (b['non-white'] !== '**') ? b['non-white'] * 100 : 0;
+    arr.push(b);
+    b = {};
+    b['race'] = 'Black';
+    b['count'] = (b['black'] !== '**') ? b['black'] * 100 : 0;
+    arr.push(b);
+    b = {};
+    b['race'] = 'Hispanic';
+    b['count'] = (b['hispanic'] !== '**') ? b['hispanic'] * 100 : 0;
+    arr.push(b);
+    b = {};
+    b['race'] = 'Asian';
+    b['count'] = (b['asian'] !== '**') ? b['asian'] * 100 : 0;
+    arr.push(b);
+    b_data[d['city']] = arr;
+  });
+
+  let svg = d3.select("#bar")
+                .append("svg")
+                .attr("viewBox", [0, 0, sb_width, sb_height]);
+
+  x = d3.scaleBand()
+          .domain(d3.range(data.length))
+          .range([margin.left, width - margin.right])
+          .padding(1.0);
+
 }

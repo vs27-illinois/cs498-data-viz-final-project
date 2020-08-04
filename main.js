@@ -261,8 +261,6 @@ function create_slide2(data) {
 }
 
 function create_slide3(data) {
-  console.log(data);
-
   let b_data = [];
 
   let select = d3.select('#cities');
@@ -273,27 +271,27 @@ function create_slide3(data) {
     var b = {};
     b['city'] = ['city'];
     b['race'] = 'White';
-    b['count'] = (b['white'] !== '**') ? b['white'] * 100 : 0;
+    b['count'] = (b['white'] !== '**') ? parseFloat(b['white']) * 100 : 0;
     b_data.push(b);
     b = {};
     b['city'] = ['city'];
     b['race'] = 'Non-White';
-    b['count'] = (b['non-white'] !== '**') ? b['non-white'] * 100 : 0;
+    b['count'] = (b['non-white'] !== '**') ? parseFloat(b['non-white']) * 100 : 0;
     b_data.push(b);
     b = {};
     b['city'] = ['city'];
     b['race'] = 'Black';
-    b['count'] = (b['black'] !== '**') ? b['black'] * 100 : 0;
+    b['count'] = (b['black'] !== '**') ? parseFloat(b['black']) * 100 : 0;
     b_data.push(b);
     b = {};
     b['city'] = ['city'];
     b['race'] = 'Hispanic';
-    b['count'] = (b['hispanic'] !== '**') ? b['hispanic'] * 100 : 0;
+    b['count'] = (b['hispanic'] !== '**') ? parseFloat(b['hispanic']) * 100 : 0;
     b_data.push(b);
     b = {};
     b['city'] = ['city'];
     b['race'] = 'Asian';
-    b['count'] = (b['asian'] !== '**') ? b['asian'] * 100 : 0;
+    b['count'] = (b['asian'] !== '**') ? parseFloat(b['asian']) * 100 : 0;
     b_data.push(b);
   });
 

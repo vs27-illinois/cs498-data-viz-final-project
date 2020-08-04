@@ -40,9 +40,9 @@ d3.csv(base_url + "police-locals.csv")
             .enter()
             .append("path")
             .attr("d", path)
-            .style("stroke", "#fff")
+            .style("stroke", "#b5b5b5")
             .style("stroke-width", "1")
-            .style("fill", "rgb(213,222,217)");
+            .style("fill", "#e5e5e5");
 
         d3.csv(base_url + "us-city-lat-long.csv")
           .then(function(city) {

@@ -12,6 +12,7 @@ let margin = {top: 30, right: 30, bottom: 30, left: 150};
 // Bar Chart Width, Height and Margin
 let b_width = 500;
 let b_height = 300;
+let b_margin = {top: 30, right: 30, bottom: 30, left: 50};
 
 let f = d3.format(",");
 
@@ -300,21 +301,21 @@ function create_slide3(data) {
 
   let x = d3.scaleBand()
               .domain(b_data.map(function(d) { return d['race']; }))
-              .range([margin.left, b_width - margin.right])
+              .range([b_margin.left, b_width - b_margin.right])
               .padding(0.1);
 
   let y = d3.scaleLinear()
               .domain([0, d3.max(data, d => d.value)]).nice()
-              .range([b_height - margin.bottom, margin.top])
+              .range([b_height - b_margin.bottom, b_margin.top])
 
   svg.append("g")
             .attr("class", "axis")
-            .attr("transform", "translate(0," + (b_height - margin.bottom) + ")")
+            .attr("transform", "translate(0," + (b_height - b_margin.bottom) + ")")
             .call(d3.axisBottom(x));
 
   svg.append("g")
             .attr("class", "axis")
-            .attr("transform", "translate(" + margin.left + ",0)")
+            .attr("transform", "translate(" + b_margin.left + ",0)")
             .call(d3.axisLeft(y).ticks(10, '%'))
             .append("text")
             .attr("transform", "rotate(-90)")

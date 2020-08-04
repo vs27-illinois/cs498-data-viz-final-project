@@ -95,7 +95,7 @@ function create_map(data) {
                 .style("opacity", 0)
                 .transition()
                 .duration(1000)
-                .delay((d, i) => i * 10)
+                .delay((d, i) => i * 100)
                 .style("opacity", 0.85);
 
             svg.append('path')

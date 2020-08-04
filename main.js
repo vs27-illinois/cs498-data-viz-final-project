@@ -317,9 +317,9 @@ function create_slide3(data) {
 
   svg.append("g")
             .attr("class", "axis")
+            .attr("transform", "translate(" + b_margin.left + ",0)")
             .call(d3.axisLeft(y).ticks(10, "%"))
             .append("text")
-            .attr("transform", "rotate(-90)")
             .attr("y", 6)
             .attr("dy", "0.71em")
             .attr("text-anchor", "end")

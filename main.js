@@ -60,7 +60,7 @@ function change_slide(num) {
                   .duration(1000)
                   .delay((d, i) => i * 10)
                   .attr("width", d => x(d[1]) - x(d[0]));
-        } else if (current_slide == 1) {
+        } else if (current_slide == 2) {
             document.querySelector('button#back').disabled = false;
             document.querySelector('button#next').disabled = true;
             let svg = d3.select("#bar").select('svg');

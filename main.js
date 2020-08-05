@@ -290,36 +290,51 @@ function create_slide3(data) {
       return d['city'] === sq;
     });
 
+  let path = svg.append('path')
+                .attr('d', 'M 107 40L 107 370')
+                .style('fill', 'none')
+                .style('stroke', 'black')
+                .style('stroke-width', 1)
+                .style('visibility' 'hidden');
+
+  let text = svg.append('text')
+              .attr('x', 80)
+              .attr('y', 35)
+              .attr('font-size', 9)
+              .style('visibility' 'hidden');
+
   svg.selectAll("rect")
         .data(f_data)
         .enter().append("rect")
         .attr("x", d => x(d['race']))
-        .attr("y", d => y(d['count']))
         .attr("width", x.bandwidth())
-        .attr("fill", "#10a778");
+        .attr("height", d => b_height - b_margin.bottom - y(d['count']))
+        .attr("fill", "#10a778")
+        .on("mouseover", d => {
+          let note = 'Among the ' + d['race'] + ' cops in ' + d['city'] +
+                     ' PD ' + d3.format(".0%")(d['count']) + ' are living in the city';
+          if (d['count'] == 0) {
+            note = 'Data Not Available';
+          }
+          path.attr('d', 'M ' + d3.event.pageX + ' 40L ' + d3.event.pageX + ' 370')
+              .style('visibility' 'visible');
+          text.attr('x', d3.event.pageX)
+              .text(note)
+              .style('visibility' 'visible');
+        })
+        .on("mouseout", d => {
+          path.style('visibility' 'hidden');
+          text.style('visibility' 'hidden');
+        });;
 
   svg.selectAll("rect")
         .transition().duration(1000)
         .delay((d, i) => i * 10)
-        .attr("height", d => b_height - b_margin.bottom - y(d['count']));
-
-  let w = f_data[0], nw = f_data[1];
-  let c = w['city'].split(',')[0];
-  let text1 = add_annotation(svg, 'M 107 40L 107 370', [80,35],
-              'Among the White cops in ' + c + ' PD, ' + d3.format(".0%")(w['count']) + ' are living in the city', 9);
-  let text2 = add_annotation(svg, 'M 183 70L 183 370', [140,65],
-              'Among the Non-White cops in ' + c + ' PD, ' + d3.format(".0%")(nw['count']) + ' are living in the city', 9);
+        .attr("y", d => y(d['count']));
 
   d3.select("#cities").on("change", () => {
        let sq = d3.select("#cities").property("value");
        let data = b_data.filter(d => d['city'] === sq)
-
-       w = data[0];
-       nw = data[1];
-       c = w['city'].split(',')[0];
-
-       text1.text('Among the White cops in ' + c + ' PD, ' + d3.format(".0%")(w['count']) + ' are living in the city');
-       text2.text('Among the Non-White cops in ' + c + ' PD, ' + d3.format(".0%")(nw['count']) + ' are living in the city');
 
        svg.selectAll("rect")
          .data(data)
@@ -331,7 +346,7 @@ function create_slide3(data) {
    });
 }
 
-function add_annotation(svg, l_coord, t_coord, note, font_size) {
+function add_annotation(svg, l_coord, t_coord, note) {
     let path = svg.append('path')
                   .attr('d', l_coord)
                   .style('fill', 'none')
@@ -352,7 +367,7 @@ function add_annotation(svg, l_coord, t_coord, note, font_size) {
         text = svg.append('text')
                 .attr('x', t_coord[0])
                 .attr('y', t_coord[1])
-                .attr('font-size', font_size || 13)
+                .attr('font-size', 13)
                 .text(note);
         text.style("opacity", 0)
                 .transition()

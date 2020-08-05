@@ -41,7 +41,7 @@ function change_slide(num) {
         document.querySelector('div#slide-' + current_slide).style.display = 'none';
         current_slide += num;
         document.querySelector('div#slide-' + current_slide).style.display = 'block';
-        if (current_slide == 0) {
+        if (current_slide == 1) {
             document.querySelector('button#back').disabled = true;
             document.querySelector('button#next').disabled = false;
             let svg = d3.select("#map").select('svg');
@@ -51,7 +51,7 @@ function change_slide(num) {
                 .duration(500)
                 .delay((d, i) => i * 10)
                 .style("opacity", 0.85);
-        } else if (current_slide == 1) {
+        } else if (current_slide == 2) {
             document.querySelector('button#back').disabled = false;
             document.querySelector('button#next').disabled = false;
             let svg = d3.select("#stack-bar").select('svg');
@@ -60,7 +60,7 @@ function change_slide(num) {
                   .duration(1000)
                   .delay((d, i) => i * 10)
                   .attr("width", d => x(d[1]) - x(d[0]));
-        } else if (current_slide == 2) {
+        } else if (current_slide == 3) {
             document.querySelector('button#back').disabled = false;
             document.querySelector('button#next').disabled = true;
             let svg = d3.select("#bar").select('svg');

@@ -46,27 +46,11 @@ function change_slide(num) {
             document.querySelector('button#back').disabled = true;
             document.querySelector('button#next').disabled = false;
             let svg = d3.select("#map").select('svg');
-            svg.selectAll("circle")
-                .style("opacity", 0)
-                .transition()
-                .duration(500)
-                .delay((d, i) => i * 10)
-                .style("opacity", 0.85);
-             let path = svg.select('path');
-             var totalLength = path.node().getTotalLength();
-             path.attr("stroke-dasharray", totalLength + " " + totalLength)
-                 .attr("stroke-dashoffset", totalLength)
-                 .transition()
-                 .duration(500)
-                 .delay(1000)
-                 .ease(d3.easeLinear)
-                 .attr("stroke-dashoffset", 0);
-             svg.select('text')
-                 .style("opacity", 0)
-                 .transition()
-                 .duration(1000)
-                 .delay(1100)
-                 .style("opacity", 1);
+            animate_circle(svg);
+            let path = svg.select('path');
+            animate_path(path);
+            let text = svg.select('text')
+            animate_text(text);
         } else if (current_slide == 2) {
             document.querySelector('button#back').disabled = false;
             document.querySelector('button#next').disabled = false;
@@ -143,13 +127,6 @@ function create_map(data) {
                        .duration(500)
                        .style("opacity", 0);
                 });
-
-            svg.selectAll("circle")
-                .style("opacity", 0)
-                .transition()
-                .duration(500)
-                .delay((d, i) => i * 10)
-                .style("opacity", 0.85);
 
             add_annotation(svg, 'M 910 170L 820 75', [650, 70],
                            'New York City has the largest police force in the country');
@@ -236,7 +213,7 @@ function create_slide2(data) {
 
   svg.selectAll('rect')
       .transition()
-      .duration(1000)
+      .duration(500)
       .delay((d, i) => i * 10)
       .attr("width", d => x(d[1]) - x(d[0]));
 
@@ -395,7 +372,7 @@ function create_slide3(data) {
 
        svg.selectAll("rect")
          .data(data)
-         .transition().duration(1000)
+         .transition().duration(500)
          .delay((d, i) => i * 10)
          .attr("x", d => x(d['race']))
          .attr("y", d => y(d['count']))
@@ -410,14 +387,7 @@ function add_annotation(svg, l_coord, t_coord, note) {
                   .style('stroke', 'black')
                   .style('stroke-width', 1);
 
-    var totalLength = path.node().getTotalLength();
-    path.attr("stroke-dasharray", totalLength + " " + totalLength)
-        .attr("stroke-dashoffset", totalLength)
-        .transition()
-        .duration(500)
-        .delay(1000)
-        .ease(d3.easeLinear)
-        .attr("stroke-dashoffset", 0);
+    animate_path(path);
 
     let text = null;
     if (t_coord.length > 0) {
@@ -426,12 +396,36 @@ function add_annotation(svg, l_coord, t_coord, note) {
                 .attr('y', t_coord[1])
                 .attr('font-size', 13)
                 .text(note);
-        text.style("opacity", 0)
-                .transition()
-                .duration(1000)
-                .delay(1100)
-                .style("opacity", 1);
+        animate_text(text);
     }
 
     return text;
+}
+
+function animate_circle(svg) {
+    svg.selectAll("circle")
+        .style("opacity", 0)
+        .transition()
+        .duration(500)
+        .delay((d, i) => i * 10)
+        .style("opacity", 0.85);
+}
+
+function animate_path(path) {
+    var totalLength = path.node().getTotalLength();
+    path.attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition()
+        .duration(500)
+        .delay(1000)
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", 0);
+}
+
+function animate_text(text) {
+    text.style("opacity", 0)
+        .transition()
+        .duration(500)
+        .delay(1200)
+        .style("opacity", 1);
 }

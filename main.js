@@ -200,7 +200,7 @@ function create_slide2(data) {
     .data(colors)
     .enter().append("g")
     .attr("class", "legend")
-    .attr("transform", (d, i) => "translate(100," + (5 + i * 20) + ")");
+    .attr("transform", (d, i) => "translate(100," + (5 + i * 25) + ")");
 
   legend.append("rect")
     .attr("x", 150)

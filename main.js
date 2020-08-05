@@ -1,6 +1,6 @@
 let base_url = 'https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-final-project/master/';
 
-let current_slide = 0;
+let current_slide = 1;
 
 // Map Width and Height
 let map_width = 1200;
@@ -26,10 +26,10 @@ let div = d3.select("body")
 d3.csv(base_url + "police-locals.csv")
   .then(data => {
       if (current_slide > 0) {
-        d3.select('#backButton').attr('disabled', false);
+          document.querySelector('button#back').disabled = false;
       }
       if (current_slide < 2) {
-        d3.select('#nextButton').attr('disabled', false);
+          document.querySelector('button#next').disabled = false;
       }
       create_map(data);
       create_slide2(data);
@@ -37,8 +37,29 @@ d3.csv(base_url + "police-locals.csv")
   }).catch(err => console.log(err));
 
 function change_slide(num) {
-    if (current_slide + num > 0 && current_slide + num < 2) {
-
+    if (current_slide + num > 0 && current_slide + num < 4) {
+        document.querySelector('div#slide-' + current_slide).style.display = 'none';
+        current_slide += num;
+        document.querySelector('div#slide-' + current_slide).style.display = 'block';
+        if (current_slide == 0) {
+            let svg = d3.select("#map").select('svg');
+            svg.selectAll("circle")
+                .style("opacity", 0)
+                .transition()
+                .duration(500)
+                .delay((d, i) => i * 10)
+                .style("opacity", 0.85);
+        } else if (current_slide == 1) {
+            let svg = d3.select("#stack-bar").select('svg');
+            svg.selectAll('rect')
+                  .attr("width", 0)
+                  .transition()
+                  .duration(1000)
+                  .delay((d, i) => i * 10)
+                  .attr("width", d => x(d[1]) - x(d[0]));
+        } else if (current_slide == 1) {
+            let svg = d3.select("#bar").select('svg');
+        }
     }
 }
 

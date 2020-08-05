@@ -70,12 +70,12 @@ function change_slide(num) {
         } else if (current_slide == 2) {
             document.querySelector('button#back').disabled = false;
             document.querySelector('button#next').disabled = false;
-            d3.select("#stack-bar").html = '';
+            document.querySelector("div#stack-bar").innerHTML = '';
             create_slide2(csv);
         } else if (current_slide == 3) {
             document.querySelector('button#back').disabled = false;
             document.querySelector('button#next').disabled = true;
-            d3.select("#bar").html = '';
+            document.querySelector("div#bar").innerHTML = '';
             create_slide3(csv);
         }
     }

@@ -113,7 +113,6 @@ function create_map(data) {
                 .style("fill", "#d25c4d")
                 .style("stroke", "#ff0000")
                 .style("stroke-width", "1")
-                .style("opacity", 0)
                 .on("mouseover", d => {
                     let text = 'City: ' + d['city'] + '<br/># of Officers: ' + f(d['police_force_size']);
                     div.transition()
@@ -129,6 +128,7 @@ function create_map(data) {
                        .style("opacity", 0);
                 });
 
+            animate_circle(svg);
             add_annotation(svg, 'M 910 170L 820 75', [650, 70],
                            'New York City has the largest police force in the country');
           }).catch(err => console.log(err));

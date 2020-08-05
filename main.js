@@ -25,10 +25,10 @@ let div = d3.select("body")
 
 d3.csv(base_url + "police-locals.csv")
   .then(data => {
-      if (current_slide > 0) {
+      if (current_slide > 1) {
           document.querySelector('button#back').disabled = false;
       }
-      if (current_slide < 2) {
+      if (current_slide < 3) {
           document.querySelector('button#next').disabled = false;
       }
       create_map(data);
@@ -42,6 +42,8 @@ function change_slide(num) {
         current_slide += num;
         document.querySelector('div#slide-' + current_slide).style.display = 'block';
         if (current_slide == 0) {
+            document.querySelector('button#back').disabled = true;
+            document.querySelector('button#next').disabled = false;
             let svg = d3.select("#map").select('svg');
             svg.selectAll("circle")
                 .style("opacity", 0)
@@ -50,14 +52,17 @@ function change_slide(num) {
                 .delay((d, i) => i * 10)
                 .style("opacity", 0.85);
         } else if (current_slide == 1) {
+            document.querySelector('button#back').disabled = false;
+            document.querySelector('button#next').disabled = false;
             let svg = d3.select("#stack-bar").select('svg');
             svg.selectAll('rect')
-                  .attr("width", 0)
                   .transition()
                   .duration(1000)
                   .delay((d, i) => i * 10)
                   .attr("width", d => x(d[1]) - x(d[0]));
         } else if (current_slide == 1) {
+            document.querySelector('button#back').disabled = false;
+            document.querySelector('button#next').disabled = true;
             let svg = d3.select("#bar").select('svg');
         }
     }

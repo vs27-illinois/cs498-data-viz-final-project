@@ -11,17 +11,27 @@
             Source: FiveThirtyEight [<a href="https://github.com/fivethirtyeight/data/tree/master/police-locals">https://github.com/fivethirtyeight/data/tree/master/police-locals</a>]
         </p>
         <hr/>
+        <div class="nav">
+            <button id="backButton" onclick="changeSlide(-1)" disabled=true>
+                Back
+            </button>
+        </div>
+        <div class="nav">
+            <button id="nextButton" onclick="changeSlide(1)" disabled=true>
+                Back
+            </button>
+        </div>
         <div class="slides" id="slide-1">
             <h2>Cities With The 75 Largest Police Forces</h2>
             <div id="map"></div>
         </div>
         <hr/>
-        <div class="slides" id="slide-2">
+        <div class="slides" id="slide-2" style="display: none">
             <h2>Police Residence: Locals vs. Non-Locals</h2>
             <div id="stack-bar"></div>
         </div>
         <hr/>
-        <div class="slides" id="slide-3">
+        <div class="slides" id="slide-3" style="display: none">
             <h2>Percentage Of Local Police Officers In Each Race</h2>
             <div>
                 <label for="cities">Select a city:</label>

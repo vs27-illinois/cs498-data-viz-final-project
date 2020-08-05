@@ -18,6 +18,10 @@ label {
     font-size: 13px;
 }
 
+div.nav {
+    position: absolute;
+}
+
 div.slides {
     padding-top: 15px;
 }

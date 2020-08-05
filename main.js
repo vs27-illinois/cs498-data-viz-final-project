@@ -311,15 +311,15 @@ function create_slide3(data) {
         .attr("height", d => b_height - b_margin.bottom - y(d['count']))
         .attr("fill", "#10a778")
         .on("mouseover", d => {
-          let note = 'Among the ' + d['race'] + ' cops in ' + d['city'] +
-                     ' PD ' + d3.format(".0%")(d['count']) + ' are living in the city';
+          let c = d['city'].split(',')[0];
+          let note = 'Among the ' + d['race'] + ' cops in ' + c + ' PD ' +
+                     d3.format(".0%")(d['count']) + ' are living in the city';
           if (d['count'] == 0) {
             note = 'Data Not Available';
           }
-          path.attr('d', 'M ' + d3.event.pageX + ' 40L ' + d3.event.pageX + ' 370')
+          path.attr('d', 'M ' + d3.event.offsetX + ' 40L ' + d3.event.offsetX + ' 370')
               .style('visibility', 'visible');
-          text.attr('x', d3.event.pageX)
-              .text(note)
+          text.text(note)
               .style('visibility', 'visible');
         })
         .on("mouseout", d => {

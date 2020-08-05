@@ -314,7 +314,7 @@ function create_slide3(data) {
         .on("mouseover", d => {
           let xpos = xs[d['race']];
           let c = d['city'].split(',')[0];
-          let note = 'Among the ' + d['race'] + ' cops in ' + c + ' PD ' +
+          let note = 'Among the ' + d['race'] + ' cops in ' + c + ' PD, ' +
                      d3.format(".0%")(d['count']) + ' are living in the city';
           if (d['count'] == 0) {
             note = 'Data Not Available';

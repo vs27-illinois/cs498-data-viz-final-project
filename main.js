@@ -338,6 +338,8 @@ function create_slide3(data) {
   svg.selectAll("rect")
         .data(f_data)
         .enter().append("rect")
+        .attr("x", d => x(d['race']))
+        .attr("y", d => y(d['count']))
         .attr("width", x.bandwidth())
         .attr("fill", "#10a778")
         .on("mouseover", d => {
@@ -365,10 +367,9 @@ function create_slide3(data) {
         });
 
   svg.selectAll("rect")
+       .attr("height", 0)
        .transition().duration(500)
        .delay((d, i) => i * 10)
-       .attr("x", d => x(d['race']))
-       .attr("y", d => y(d['count']))
        .attr("height", d => b_height - b_margin.bottom - y(d['count']));
 
   d3.select("#cities").on("change", () => {

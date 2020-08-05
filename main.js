@@ -290,6 +290,7 @@ function create_slide3(data) {
       return d['city'] === sq;
     });
 
+  let xs = { 'White': 107, 'Non-White': 183, 'Black': 260, 'Hispanic': 336, 'Asian': 412};
   let path = svg.append('path')
                 .attr('d', 'M 107 40L 107 370')
                 .style('fill', 'none')
@@ -311,16 +312,23 @@ function create_slide3(data) {
         .attr("height", d => b_height - b_margin.bottom - y(d['count']))
         .attr("fill", "#10a778")
         .on("mouseover", d => {
+          let xpos = xs[d['race']];
           let c = d['city'].split(',')[0];
           let note = 'Among the ' + d['race'] + ' cops in ' + c + ' PD ' +
                      d3.format(".0%")(d['count']) + ' are living in the city';
           if (d['count'] == 0) {
             note = 'Data Not Available';
           }
-          path.attr('d', 'M ' + d3.event.offsetX + ' 40L ' + d3.event.offsetX + ' 370')
+          path.attr('d', 'M ' + xs[d['race']] + ' 40L ' + xs[d['race']] + ' 370')
               .style('visibility', 'visible');
-          text.text(note)
-              .style('visibility', 'visible');
+          text.text(note);
+          let len = text.node().getComputedTextLength();
+          if (xpos + len >= b_width) {
+            text.attr('x', b_width - len - 20);
+          } else {
+            text.attr('x', xpos - 30);
+          }
+          text.style('visibility', 'visible');
         })
         .on("mouseout", d => {
           path.style('visibility', 'hidden');

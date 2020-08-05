@@ -25,13 +25,20 @@ let div = d3.select("body")
 
 d3.csv(base_url + "police-locals.csv")
   .then(data => {
+      if (current_slide > 0) {
+        d3.select('#backButton').attr('disabled', false);
+      }
+      if (current_slide < 2) {
+        d3.select('#nextButton').attr('disabled', false);
+      }
       create_map(data);
       create_slide2(data);
       create_slide3(data);
   }).catch(err => console.log(err));
 
 function change_slide(num) {
-    if (current_slide + num > 0) {
+    if (current_slide + num > 0 && current_slide + num < 2) {
+
     }
 }
 

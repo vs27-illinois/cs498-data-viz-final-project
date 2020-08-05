@@ -200,7 +200,7 @@ function create_slide2(data) {
     .data(colors)
     .enter().append("g")
     .attr("class", "legend")
-    .attr("transform", (d, i) => "translate(" + (300 + i * 100) + ",30)");
+    .attr("transform", (d, i) => "translate(100," + (5 + i * 20) + ")");
 
   legend.append("rect")
     .attr("x", 150)
@@ -215,8 +215,8 @@ function create_slide2(data) {
     .style("text-anchor", "start")
     .text((d, i) => {
       switch (i) {
-        case 0: return "Locals";
-        case 1: return "Non-Locals";
+        case 0: return "Locals: Officers live in the city they serve";
+        case 1: return "Non-Locals: Officers don't live in the city they serve";
       }
     });
 }

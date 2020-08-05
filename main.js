@@ -113,6 +113,7 @@ function create_map(data) {
                 .style("fill", "#d25c4d")
                 .style("stroke", "#ff0000")
                 .style("stroke-width", "1")
+                .style("opacity", 0)
                 .on("mouseover", d => {
                     let text = 'City: ' + d['city'] + '<br/># of Officers: ' + f(d['police_force_size']);
                     div.transition()

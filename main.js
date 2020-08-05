@@ -295,13 +295,13 @@ function create_slide3(data) {
                 .style('fill', 'none')
                 .style('stroke', 'black')
                 .style('stroke-width', 1)
-                .style('visibility' 'hidden');
+                .style('visibility', 'hidden');
 
   let text = svg.append('text')
               .attr('x', 80)
               .attr('y', 35)
               .attr('font-size', 9)
-              .style('visibility' 'hidden');
+              .style('visibility', 'hidden');
 
   svg.selectAll("rect")
         .data(f_data)
@@ -317,14 +317,14 @@ function create_slide3(data) {
             note = 'Data Not Available';
           }
           path.attr('d', 'M ' + d3.event.pageX + ' 40L ' + d3.event.pageX + ' 370')
-              .style('visibility' 'visible');
+              .style('visibility', 'visible');
           text.attr('x', d3.event.pageX)
               .text(note)
-              .style('visibility' 'visible');
+              .style('visibility', 'visible');
         })
         .on("mouseout", d => {
-          path.style('visibility' 'hidden');
-          text.style('visibility' 'hidden');
+          path.style('visibility', 'hidden');
+          text.style('visibility', 'hidden');
         });;
 
   svg.selectAll("rect")

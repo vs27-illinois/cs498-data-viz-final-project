@@ -23,8 +23,11 @@ let div = d3.select("body")
             .attr("class", "tooltip")
             .style("opacity", 0);
 
+let csv = null;
+
 d3.csv(base_url + "police-locals.csv")
   .then(data => {
+      csv = data;
       if (current_slide > 1) {
           document.querySelector('button#back').disabled = false;
       }
@@ -32,8 +35,6 @@ d3.csv(base_url + "police-locals.csv")
           document.querySelector('button#next').disabled = false;
       }
       create_map(data);
-      create_slide2(data);
-      create_slide3(data);
   }).catch(err => console.log(err));
 
 function change_slide(num) {
@@ -51,19 +52,31 @@ function change_slide(num) {
                 .duration(500)
                 .delay((d, i) => i * 10)
                 .style("opacity", 0.85);
+             let path = svg.select('path');
+             var totalLength = path.node().getTotalLength();
+             path.attr("stroke-dasharray", totalLength + " " + totalLength)
+                 .attr("stroke-dashoffset", totalLength)
+                 .transition()
+                 .duration(500)
+                 .delay(1000)
+                 .ease(d3.easeLinear)
+                 .attr("stroke-dashoffset", 0);
+             svg.select('text')
+                 .style("opacity", 0)
+                 .transition()
+                 .duration(1000)
+                 .delay(1100)
+                 .style("opacity", 1);
         } else if (current_slide == 2) {
             document.querySelector('button#back').disabled = false;
             document.querySelector('button#next').disabled = false;
-            let svg = d3.select("#stack-bar").select('svg');
-            svg.selectAll('rect')
-                  .transition()
-                  .duration(1000)
-                  .delay((d, i) => i * 10)
-                  .attr("width", d => x(d[1]) - x(d[0]));
+            d3.select("#stack-bar").html = '';
+            create_slide2(csv);
         } else if (current_slide == 3) {
             document.querySelector('button#back').disabled = false;
             document.querySelector('button#next').disabled = true;
-            let svg = d3.select("#bar").select('svg');
+            d3.select("#bar").html = '';
+            create_slide3(csv);
         }
     }
 }

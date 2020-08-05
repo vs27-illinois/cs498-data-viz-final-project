@@ -1,5 +1,7 @@
 let base_url = 'https://raw.githubusercontent.com/vs27-illinois/cs498-data-viz-final-project/master/';
 
+let current_slide = 0;
+
 // Map Width and Height
 let map_width = 1200;
 let map_height = 600;
@@ -27,6 +29,11 @@ d3.csv(base_url + "police-locals.csv")
       create_slide2(data);
       create_slide3(data);
   }).catch(err => console.log(err));
+
+function change_slide(num) {
+    if (current_slide + num > 0) {
+    }
+}
 
 function create_map(data) {
     d3.json(base_url + "us-states.json")

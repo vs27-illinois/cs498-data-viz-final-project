@@ -41,7 +41,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button:hover:not([disabled]) {
   background-color: #008CBA;
   color: white;
 }
